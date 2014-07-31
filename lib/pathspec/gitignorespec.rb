@@ -3,7 +3,7 @@
 require 'pathspec/regexspec'
 
 class GitIgnoreSpec < RegexSpec
-  attr_reader :inclusive, :regex
+  attr_reader :regex
 
   def initialize(pattern)
     pattern = pattern.strip unless pattern.nil?
@@ -58,15 +58,14 @@ class GitIgnoreSpec < RegexSpec
       # to root.
       if pattern_segs[0].empty?
         pattern_segs.shift
-        # TODO: Figure out if this is intended behavior
-      # else
-      #   # A pattern without a beginning slash ('/') will match any
-      #   # descendant path. This is equivilent to "**/{pattern}". So,
-      #   # prepend with double-asterisks to make pattern relative to
-      #   # root.
-      #   if pattern_segs[0] != '**'
-      #     pattern_segs.insert(0, '**')
-      #   end
+      else
+        # A pattern without a beginning slash ('/') will match any
+        # descendant path. This is equivilent to "**/{pattern}". So,
+        # prepend with double-asterisks to make pattern relative to
+        # root.
+        if pattern_segs[0] != '**'
+          pattern_segs.insert(0, '**')
+        end
       end
 
       # A pattern ending with a slash ('/') will match all descendant
@@ -205,15 +204,8 @@ class GitIgnoreSpec < RegexSpec
           j += 1
         end
 
-        # Found end of braket expression. Increment j to be one past
-        # the closing braket:
-        #
-        #  [...]
-        #   ^   ^
-        #   i   j
-        #
+
         if j < pattern.size
-          j += 1
           expr = '['
 
           # Braket expression needs to be negated.
@@ -233,11 +225,19 @@ class GitIgnoreSpec < RegexSpec
 
           # Build regex braket expression. Escape slashes so they are
           # treated as literal slashes by regex as defined by POSIX.
-          expr += pattern[i..j].replace('\\', '\\\\')
+          expr += pattern[i..j].sub('\\', '\\\\')
 
           # Add regex braket expression to regex result.
           regex += expr
 
+          # Found end of braket expression. Increment j to be one past
+          # the closing braket:
+          #
+          #  [...]
+          #   ^   ^
+          #   i   j
+          #
+          j += 1
           # Set i to one past the closing braket.
           i = j
 
