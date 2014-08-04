@@ -32,7 +32,7 @@ gitignore.match 'abc/important.txt'
 # Give a path somewhere in the filesystem, and the Pathspec will return all
 # matching files underneath.
 # Returns ['/src/repo/abc/', '/src/repo/abc/123']
-gitignore.match_tree '/src/repo' # ['/src/repo/abc/', '/src/repo/abc/123']
+gitignore.match_tree '/src/repo'
 
 # Give an enumerable of paths, and Pathspec will return the ones that match.
 # Returns ['/abc/123', '/abc/']
