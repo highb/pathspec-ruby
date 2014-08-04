@@ -122,7 +122,7 @@ describe GitIgnoreSpec do
     subject { GitIgnoreSpec.new 'Documentation/*.html' }
     it { is_expected.to match('Documentation/git.html') }
     it { is_expected.to_not match('Documentation/ppc/ppc.html') }
-    it { is_expected.to_not match('tools/perf/Documentation/perf.html') }
+    it { is_expected.to_not match('tools/perf/Documentation/perf.html') } # TODO: Or is it? Git 2 weirdness?
     it { is_expected.to be_inclusive }
   end
 
@@ -149,7 +149,7 @@ describe GitIgnoreSpec do
 
   describe 'handles brackets with carats' do
     subject { GitIgnoreSpec.new '*[^]' }
-    it { is_expected.to match('myfavorite[^]') }
+    it { is_expected.to match('myfavorite^') }
     it { is_expected.to be_inclusive }
   end
 
@@ -215,8 +215,8 @@ describe GitIgnoreSpec do
     subject { GitIgnoreSpec.new 'abc/**' }
     it { is_expected.to match('abc/') }
     it { is_expected.to match('abc/def') }
-    it { is_expected.to_not match('123/abc/def') }
-    it { is_expected.to_not match('123/456/abc') }
+    it { is_expected.to_not match('123/abc/def') } # TODO: Maybe?
+    it { is_expected.to_not match('123/456/abc/') } # TODO: Maybe?
     it { is_expected.to be_inclusive }
   end
 

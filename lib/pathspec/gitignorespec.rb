@@ -63,7 +63,7 @@ class GitIgnoreSpec < RegexSpec
         # descendant path. This is equivilent to "**/{pattern}". So,
         # prepend with double-asterisks to make pattern relative to
         # root.
-        if pattern_segs[0] != '**'
+        if pattern_segs.length == 1 && pattern_segs[0] != '**'
           pattern_segs.insert(0, '**')
         end
       end
@@ -128,10 +128,8 @@ class GitIgnoreSpec < RegexSpec
       end
 
       regex.concat('$')
-      @regex = Regexp.compile(regex)
+      super(regex)
     end
-
-    super(regex)
   end
 
   def match(path)
@@ -223,6 +221,13 @@ class GitIgnoreSpec < RegexSpec
             i += 1
           end
 
+          # Escape brackets contained within pattern
+          if pattern[i] == ']' && i != j
+            expr += '\]'
+            i += 1
+          end
+
+
           # Build regex braket expression. Escape slashes so they are
           # treated as literal slashes by regex as defined by POSIX.
           expr += pattern[i..j].sub('\\', '\\\\')
@@ -244,7 +249,7 @@ class GitIgnoreSpec < RegexSpec
         # Failed to find closing braket, treat opening braket as a
         # braket literal instead of as an expression.
         else
-          regex += '\\['
+          regex += '\['
         end
 
       # Regular character, escape it for regex.

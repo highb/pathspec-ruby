@@ -2,8 +2,13 @@ require 'pathspec/spec'
 
 class RegexSpec < Spec
   def initialize(regex)
+    @regex = Regexp.compile regex
 
-    @regex = Regexp.new regex if regex
+    super
+  end
+
+  def inclusive?
+    true
   end
 
   def match(path)

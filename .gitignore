@@ -14,8 +14,6 @@
 .repl_history
 build/
 
-foo/*.html
-
 ## Documentation cache and generated files:
 /.yardoc/
 /_yardoc/

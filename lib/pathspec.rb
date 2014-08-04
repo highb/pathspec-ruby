@@ -12,6 +12,8 @@ class PathSpec
     if lines
       add(lines, type)
     end
+
+    self
   end
 
   # Check if a path matches the pathspecs described
@@ -34,12 +36,10 @@ class PathSpec
   # Returns matched paths or nil if no paths matched
   def match_tree(root)
     root = Pathname.new(root)
-    slash = Pathname.new('/')
     matching = []
 
     Find.find(root) do |path|
-      path = Pathname.new(path)
-      relpath = path.relative_path_from(root).to_s
+      relpath = Pathname.new(path).relative_path_from(root).to_s
       relpath += '/' if File.directory? path
       if match(relpath)
         matching << path
@@ -51,12 +51,12 @@ class PathSpec
 
   def match_paths(paths, root='/')
     root = Pathname.new(root)
-    slash = Pathname.new('/')
     matching = []
 
     paths.each do |path|
-      path = Pathname.new(path)
-      if match(path.relative_path_from(root))
+      relpath = Pathname.new(path).relative_path_from(root).to_s if root != '/'
+      relpath = relpath + '/' if path[-1] == '/'
+      if match(relpath)
         matching << path
       end
     end
@@ -70,7 +70,7 @@ class PathSpec
   end
 
   def self.from_lines(lines, type=:git)
-    inst = self.new lines, type
+    self.new lines, type
   end
 
   # Generate specs from lines of text
@@ -79,7 +79,7 @@ class PathSpec
 
     if obj.respond_to?(:each_line)
       obj.each_line do |l|
-        spec = spec_class.new(l)
+        spec = spec_class.new(l.rstrip)
 
         if !spec.regex.nil? && !spec.inclusive?.nil?
           @specs << spec
@@ -90,7 +90,7 @@ class PathSpec
         add(l, type)
       end
     else
-      @specs << spec_class.new(l)
+      raise 'Cannot make Pathspec from non-string/non-enumerable object.'
     end
 
     self

@@ -24,6 +24,23 @@ IGNORELINES
       end
     end
 
+    context "from a string with no newlines" do
+      let(:str) { "foo/**" }
+
+      context "#new" do
+        subject { PathSpec.new str }
+
+        it { is_expected.to match('foo/important.txt') }
+        it { is_expected.to match('foo/bar/') }
+      end
+    end
+
+    context "from a non-string/non-enumerable" do
+      it "throws an exception" do
+        expect { PathSpec.new Object.new }.to raise_error
+      end
+    end
+
     context "from array of gitignore strings" do
       let(:arr) { ["!important.txt", "foo/**", "/bar/baz"] }
 
@@ -171,10 +188,10 @@ GITIGNORE
       PathSpec.new(gitignore).match_tree(root)
     }
 
-    it { is_expected.to include Pathname.new "#{root}/abc" }
-    it { is_expected.to include Pathname.new "#{root}/abc/1" }
-    it { is_expected.not_to include Pathname.new "#{root}/abc/important.txt" }
-    it { is_expected.not_to include Pathname.new "#{root}" }
+    it { is_expected.to include "#{root}/abc".to_s }
+    it { is_expected.to include "#{root}/abc/1".to_s }
+    it { is_expected.not_to include "#{root}/abc/important.txt".to_s }
+    it { is_expected.not_to include "#{root}".to_s }
   end
 
   context "#match_paths" do
@@ -187,16 +204,20 @@ GITIGNORE
     context "with no root arg" do
       subject { PathSpec.new(gitignore).match_paths(['/abc/important.txt', '/abc/', '/abc/1']) }
 
-      it { is_expected.to include Pathname.new "/abc/" }
-      it { is_expected.to include Pathname.new "/abc/1" }
-      it { is_expected.not_to include Pathname.new "/abc/important.txt" }
+      it { is_expected.to include "/abc/" }
+      it { is_expected.to include "/abc/1" }
+      it { is_expected.not_to include "/abc/important.txt" }
     end
 
-    it 'matches the paths relative to non-root' do
-      matched = subject.match_paths(['/def/abc/important.txt', '/def/abc/', '/def/abc/1'], '/def')
-      expect(matched).to include Pathname.new "/def/abc/"
-      expect(matched).to include Pathname.new "/def/abc/1"
-      expect(matched).not_to include Pathname.new "/def/abc/important.txt"
+    context 'relative to non-root dir' do
+      subject { PathSpec.new(gitignore).match_paths([
+        '/def/abc/important.txt',
+        '/def/abc/',
+        '/def/abc/1'], '/def') }
+
+      it { is_expected.to include "/def/abc/" }
+      it { is_expected.to include "/def/abc/1" }
+      it { is_expected.not_to include "/def/abc/important.txt" }
     end
   end
 
@@ -215,7 +236,7 @@ GITIGNORE
 
   context "regex file" do
     let(:regexfile) { <<-REGEX
-/ab+a/
+ab*a
 REGEX
     }
 
@@ -224,6 +245,17 @@ REGEX
     it "matches the regex" do
       expect(subject.match('anna')).to be false
       expect(subject.match('abba')).to be true
+    end
+  end
+
+  context "unsuppored spec type" do
+    let(:file) { <<-REGEX
+This is some kind of nonsense.
+REGEX
+    }
+
+    it "does not allow an unknown spec type" do
+      expect { PathSpec.new file, :foo}.to raise_error
     end
   end
 end
