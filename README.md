@@ -2,7 +2,7 @@ pathspec-ruby
 =============
 ## Match Path Specifications (.gitignore) in Ruby!
 
-Gitignore functionality ported from [Python pathspec](https://pypi.python.org/pypi/pathspec/0.2.2) by @cpburnz
+Gitignore functionality ported from [Python pathspec](https://pypi.python.org/pypi/pathspec/0.2.2) by [@cpburnz](https://github.com/cpburnz/python-path-specification)
 
 ## Build/Install from Rubygems
 ```shell
