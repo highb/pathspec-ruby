@@ -221,6 +221,26 @@ GITIGNORE
     end
   end
 
+  # Example to exclude everything except a specific directory foo/bar (note
+  # the /* - without the slash, the wildcard would also exclude everything
+  # within foo/bar): (from git-scm.com)
+  context "very specific gitignore" do
+    let(:gitignore) { <<-GITIGNORE
+# exclude everything except directory foo/bar
+/*
+!/foo
+/foo/*
+!/foo/bar
+GITIGNORE
+    }
+
+    subject { PathSpec.new(gitignore) }
+
+    it { is_expected.not_to match("foo/bar") }
+    it { is_expected.to match("anything") }
+    it { is_expected.to match("foo/otherthing") }
+  end
+
   context "#empty" do
     let(:gitignore) { <<-GITIGNORE
 # A comment
