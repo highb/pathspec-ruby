@@ -155,7 +155,7 @@ class GitIgnoreSpec < RegexSpec
 
     while i < pattern.size
       # Get next character.
-      char = pattern[i]
+      char = pattern[i].chr
       i += 1
 
       # Escape the character.

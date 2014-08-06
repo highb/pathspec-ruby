@@ -1,4 +1,4 @@
-require_relative '../spec_helper'
+require 'spec_helper'
 require 'fakefs/safe'
 require 'pathspec'
 require 'fakefs/spec_helpers'
