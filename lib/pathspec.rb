@@ -49,14 +49,18 @@ class PathSpec
     matching
   end
 
-  def match_paths(paths, root='/')
+  def match_path(path, root='/')
     root = Pathname.new(root)
+    relpath = Pathname.new(path).relative_path_from(root).to_s if root != '/'
+    relpath = relpath + '/' if path[-1] == '/'
+    match(relpath)
+  end
+
+  def match_paths(paths, root='/')
     matching = []
 
     paths.each do |path|
-      relpath = Pathname.new(path).relative_path_from(root).to_s if root != '/'
-      relpath = relpath + '/' if path[-1] == '/'
-      if match(relpath)
+      if match_path(relpath, root)
         matching << path
       end
     end
