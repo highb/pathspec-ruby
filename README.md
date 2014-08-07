@@ -7,6 +7,8 @@ Follows .gitignore syntax defined on [gitscm](http://git-scm.com/docs/gitignore)
 
 .gitignore functionality ported from [Python pathspec](https://pypi.python.org/pypi/pathspec/0.2.2) by [@cpburnz](https://github.com/cpburnz/python-path-specification)
 
+![Travis CI Status](https://travis-ci.org/highb/pathspec-ruby.svg?branch=master)
+
 ## Build/Install from Rubygems
 ```shell
 gem install pathspec
