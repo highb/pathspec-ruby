@@ -50,4 +50,4 @@ cd pathspec-ruby && bash ./build_from_source.sh
 ```
 
 ## Contributing
-Pull requests, bug reports, and feature requests welcome! :smile: I've tried to write exhaustive tests (simplecov 100% coverage, woohoo!) but who knows what cases I've missed.
+Pull requests, bug reports, and feature requests welcome! :smile: I've tried to write exhaustive tests but who knows what cases I've missed.
