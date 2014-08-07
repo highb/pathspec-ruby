@@ -76,6 +76,14 @@ class GitIgnoreSpec < RegexSpec
         pattern_segs[-1] = '**'
       end
 
+      # Handle platforms with backslash separated paths
+      if File::SEPARATOR == '\\'
+        path_sep = '\\\\'
+      else
+        path_sep = '/'
+      end
+
+
       # Build regular expression from pattern.
       regex = '^'
       need_slash = false
@@ -92,34 +100,34 @@ class GitIgnoreSpec < RegexSpec
           # A normalized pattern beginning with double-asterisks
           # ('**') will match any leading path segments.
           elsif i == 0
-            regex.concat('(?:.+/)?')
+            regex.concat("(?:.+#{path_sep})?")
             need_slash = false
 
           # A normalized pattern ending with double-asterisks ('**')
           # will match any trailing path segments.
           elsif i == regex_end
-            regex.concat('/.*')
+            regex.concat("#{path_sep}.*")
 
           # A pattern with inner double-asterisks ('**') will match
           # multiple (or zero) inner path segments.
           else
-            regex.concat('(?:/.+)?')
+            regex.concat("(?:#{path_sep}.+)?")
             need_slash = true
           end
 
         # Match single path segment.
         elsif seg == '*'
           if need_slash
-            regex.concat('/')
+            regex.concat(path_sep)
           end
 
-          regex.concat('[^/]+')
+          regex.concat("[^#{path_sep}]+")
           need_slash = true
 
         else
           # Match segment glob pattern.
           if need_slash
-            regex.concat('/')
+            regex.concat(path_sep)
           end
 
           regex.concat(translate_segment_glob(seg))
