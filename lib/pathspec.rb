@@ -35,11 +35,11 @@ class PathSpec
   # Check if any files in a given directory or subdirectories match the specs
   # Returns matched paths or nil if no paths matched
   def match_tree(root)
-    root = Pathname.new(root)
+    rootpath = Pathname.new(root)
     matching = []
 
     Find.find(root) do |path|
-      relpath = Pathname.new(path).relative_path_from(root).to_s
+      relpath = Pathname.new(path).relative_path_from(rootpath).to_s
       relpath += '/' if File.directory? path
       if match(relpath)
         matching << path
