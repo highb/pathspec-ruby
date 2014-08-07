@@ -5,7 +5,9 @@ group(:test) do
   gem "fakefs", :require => "fakefs/safe"
 
     gem 'simplecov'
-  unless RUBY_VERSION =~ /1\.8.*/
+  if RUBY_VERSION =~ /1\.8.*/
+    gem 'ruby-debug'
+  else
     gem 'pry', :require => 'pry'
     gem 'pry-debugger'
   end

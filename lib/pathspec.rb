@@ -50,9 +50,14 @@ class PathSpec
   end
 
   def match_path(path, root='/')
-    root = Pathname.new(root)
-    relpath = Pathname.new(path).relative_path_from(root).to_s if root != '/'
-    relpath = relpath + '/' if path[-1] == '/'
+    if path =~ /\/abc\//
+      require 'ruby-debug'
+      # debugger
+    end
+    rootpath = Pathname.new(root)
+    relpath = Pathname.new(path).relative_path_from(rootpath).to_s
+    relpath = relpath + '/' if path[-1].chr == '/'
+
     match(relpath)
   end
 
@@ -60,7 +65,7 @@ class PathSpec
     matching = []
 
     paths.each do |path|
-      if match_path(relpath, root)
+      if match_path(path, root)
         matching << path
       end
     end

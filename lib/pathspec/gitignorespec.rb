@@ -187,18 +187,18 @@ class GitIgnoreSpec < RegexSpec
       elsif char == '['
         j = i
         # Pass brack expression negation.
-        if j < pattern.size && pattern[j] == '!'
+        if j < pattern.size && pattern[j].chr == '!'
           j += 1
         end
 
         # Pass first closing braket if it is at the beginning of the
         # expression.
-        if j < pattern.size && pattern[j] == ']'
+        if j < pattern.size && pattern[j].chr == ']'
           j += 1
         end
 
         # Find closing braket. Stop once we reach the end or find it.
-        while j < pattern.size && pattern[j] != ']'
+        while j < pattern.size && pattern[j].chr != ']'
           j += 1
         end
 
@@ -207,7 +207,7 @@ class GitIgnoreSpec < RegexSpec
           expr = '['
 
           # Braket expression needs to be negated.
-          if pattern[i] == '!'
+          if pattern[i].chr == '!'
             expr += '^'
             i += 1
 
@@ -216,13 +216,13 @@ class GitIgnoreSpec < RegexSpec
           # `fnmatch.translate()` escapes the caret ('^') as a
           # literal. To maintain consistency with undefined behavior,
           # I am escaping the '^' as well.
-          elsif pattern[i] == '^'
+          elsif pattern[i].chr == '^'
             expr += '\\^'
             i += 1
           end
 
           # Escape brackets contained within pattern
-          if pattern[i] == ']' && i != j
+          if pattern[i].chr == ']' && i != j
             expr += '\]'
             i += 1
           end
