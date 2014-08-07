@@ -50,10 +50,6 @@ class PathSpec
   end
 
   def match_path(path, root='/')
-    if path =~ /\/abc\//
-      require 'ruby-debug'
-      # debugger
-    end
     rootpath = Pathname.new(root)
     relpath = Pathname.new(path).relative_path_from(rootpath).to_s
     relpath = relpath + '/' if path[-1].chr == '/'
