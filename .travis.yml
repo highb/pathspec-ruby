@@ -1,5 +1,6 @@
 language: ruby
-script: 'bundle exec rspec'  
+bundler_args: '--without development'
+script: 'bundle exec rspec'
 rvm:
   - 2.1.1
   - 2.0.0
