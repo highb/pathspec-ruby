@@ -169,29 +169,59 @@ IGNORELINES
   end
 
   context "#match_tree" do
-    let(:root) {'/tmp/project'}
-    let(:gitignore) { <<-GITIGNORE
-!**/important.txt
-abc/**
-GITIGNORE
-    }
+    include FakeFS::SpecHelpers
 
-    before(:each) {
-      FileUtils.mkdir_p root
-      FileUtils.mkdir_p "#{root}/abc"
-      FileUtils.touch "#{root}/abc/1"
-      FileUtils.touch "#{root}/abc/2"
-      FileUtils.touch "#{root}/abc/important.txt"
-    }
+    context "unix" do
+      let(:root) {'/tmp/project'}
+      let(:gitignore) { <<-GITIGNORE
+  !**/important.txt
+  abc/**
+  GITIGNORE
+      }
 
-    subject {
-      PathSpec.new(gitignore).match_tree(root)
-    }
+      before(:each) {
+        FileUtils.mkdir_p root
+        FileUtils.mkdir_p "#{root}/abc"
+        FileUtils.touch "#{root}/abc/1"
+        FileUtils.touch "#{root}/abc/2"
+        FileUtils.touch "#{root}/abc/important.txt"
+      }
 
-    it { is_expected.to include "#{root}/abc".to_s }
-    it { is_expected.to include "#{root}/abc/1".to_s }
-    it { is_expected.not_to include "#{root}/abc/important.txt".to_s }
-    it { is_expected.not_to include "#{root}".to_s }
+      subject {
+        PathSpec.new(gitignore).match_tree(root)
+      }
+
+      it { is_expected.to include "#{root}/abc".to_s }
+      it { is_expected.to include "#{root}/abc/1".to_s }
+      it { is_expected.not_to include "#{root}/abc/important.txt".to_s }
+      it { is_expected.not_to include "#{root}".to_s }
+    end
+
+    context "windows" do
+      let(:root) {'C:/project'}
+      let(:gitignore) { <<-GITIGNORE
+  !**/important.txt
+  abc/**
+  GITIGNORE
+      }
+
+      before(:each) {
+        FileUtils.mkdir_p root
+        FileUtils.mkdir_p "#{root}/abc"
+        FileUtils.touch "#{root}/abc/1"
+        FileUtils.touch "#{root}/abc/2"
+        FileUtils.touch "#{root}/abc/important.txt"
+      }
+
+      subject {
+        PathSpec.new(gitignore).match_tree(root)
+      }
+
+      it { is_expected.to include "#{root}/abc".to_s }
+      it { is_expected.to include "#{root}/abc/1".to_s }
+      it { is_expected.not_to include "#{root}/abc/important.txt".to_s }
+      it { is_expected.not_to include "#{root}".to_s }
+    end
   end
 
   context "#match_paths" do
@@ -218,6 +248,17 @@ GITIGNORE
       it { is_expected.to include "/def/abc/" }
       it { is_expected.to include "/def/abc/1" }
       it { is_expected.not_to include "/def/abc/important.txt" }
+    end
+
+    context 'relative to windows drive letter' do
+      subject { PathSpec.new(gitignore).match_paths([
+        'C:/def/abc/important.txt',
+        'C:/def/abc/',
+        'C:/def/abc/1'], 'C:/def/') }
+
+      it { is_expected.to include "C:/def/abc/" }
+      it { is_expected.to include "C:/def/abc/1" }
+      it { is_expected.not_to include "C:/def/abc/important.txt" }
     end
   end
 

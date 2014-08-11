@@ -50,8 +50,8 @@ class PathSpec
   end
 
   def match_path(path, root='/')
-    rootpath = Pathname.new(root)
-    relpath = Pathname.new(path).relative_path_from(rootpath).to_s
+    rootpath = Pathname.new(drive_letter_to_path(root))
+    relpath = Pathname.new(drive_letter_to_path(path)).relative_path_from(rootpath).to_s
     relpath = relpath + '/' if path[-1].chr == '/'
 
     match(relpath)
@@ -67,6 +67,10 @@ class PathSpec
     end
 
     matching
+  end
+
+  def drive_letter_to_path(path)
+    path.gsub(/^([a-zA-z]):\//, '/\1/')
   end
 
   # Generate specs from a filename, such as a .gitignore
