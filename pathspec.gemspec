@@ -3,8 +3,8 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |s|
   s.name = 'pathspec'
-  s.version = '0.0.1'
-  s.date = '2014-07-24'
+  s.version = '0.0.2'
+  s.date = '2014-08-11'
   s.summary = "PathSpec: for matching path patterns"
   s.description = "Use to match path patterns such as gitignore"
   s.authors = ["Brandon High"]
