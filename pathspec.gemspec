@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.files = Dir.glob("{bin,lib}/**/*") + %w(LICENSE README.md CHANGELOG.md)
   s.test_files = s.files.grep(%r{^spec/})
   s.require_paths = ["lib"]
-  s.homepage = 'http://rubygems.org/gems/pathspec'
+  s.homepage = 'https://rubygems.org/gems/pathspec'
   s.license = 'Apache'
   s.add_development_dependency 'bundler'
   s.add_development_dependency 'rspec'
