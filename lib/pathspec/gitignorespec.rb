@@ -27,6 +27,12 @@ class GitIgnoreSpec < RegexSpec
       @regex = nil
       @inclusive = nil
 
+    # EDGE CASE: According to git check-ignore (v2.4.1)), a single '/'
+    # does not match any file
+    elsif pattern == '/'
+      @regex = nil
+      @inclusive = nil
+
     # We have a valid pattern!
     else
       # A pattern starting with an exclamation mark ('!') negates the
@@ -58,12 +64,15 @@ class GitIgnoreSpec < RegexSpec
       # to root.
       if pattern_segs[0].empty?
         pattern_segs.shift
-      else
+      elsif pattern_segs.length == 1 ||
+        pattern_segs.length == 2 && pattern_segs[-1].empty?
         # A pattern without a beginning slash ('/') will match any
         # descendant path. This is equivilent to "**/{pattern}". So,
         # prepend with double-asterisks to make pattern relative to
         # root.
-        if pattern_segs.length == 1 && pattern_segs[0] != '**'
+        # EDGE CASE: This also holds for a single pattern with a
+        # trailing slash (e.g. dir/).
+        if pattern_segs[0] != '**'
           pattern_segs.insert(0, '**')
         end
       end
@@ -72,7 +81,7 @@ class GitIgnoreSpec < RegexSpec
       # paths of if it is a directory but not if it is a regular file.
       # This is equivilent to "{pattern}/**". So, set last segment to
       # double asterisks to include all descendants.
-      if pattern_segs[-1].empty?
+      if pattern_segs[-1].empty? && pattern_segs.length > 1
         pattern_segs[-1] = '**'
       end
 
@@ -131,6 +140,16 @@ class GitIgnoreSpec < RegexSpec
           end
 
           regex.concat(translate_segment_glob(seg))
+
+          if i == regex_end && @inclusive
+            # A pattern ending without a slash ('/') will match a file
+            # or a directory (with paths underneath it).
+            # e.g. foo matches: foo, foo/bar, foo/bar/baz, etc.
+            # EDGE CASE: However, this does not hold for exclusion cases
+            # according to `git check-ignore` (v2.4.1).
+            regex.concat("(?:#{path_sep}.*)?")
+          end
+
           need_slash = true
         end
       end
