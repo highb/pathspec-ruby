@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 group(:test) do
   gem 'rspec', :require => 'spec'
   gem "fakefs", :require => "fakefs/safe"
+  gem 'codecov', :require => false
 end
 
 group(:development) do
