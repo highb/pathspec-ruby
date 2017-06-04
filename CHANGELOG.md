@@ -1,6 +1,7 @@
 # pathspec-ruby CHANGELOG
 
 ## 0.1.0
+- Port new edgecase handling from [python-path-specification](https://github.com/cpburnz/python-path-specification/pull/8). Many thanks to @jdpace! :)
 - Removed EOL Ruby support
 - Added current Ruby stable to Travis testing
 
