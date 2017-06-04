@@ -77,6 +77,7 @@ describe GitIgnoreSpec do
     subject { GitIgnoreSpec.new 'foo/' }
     it { is_expected.to match('foo/') }
     it { is_expected.to match('foo/bar') }
+    it { is_expected.to match('baz/foo/bar') }
     it { is_expected.to_not match('foo') }
     it { is_expected.to be_inclusive }
   end
@@ -88,8 +89,29 @@ describe GitIgnoreSpec do
   describe 'handles basic globbing' do
     subject { GitIgnoreSpec.new '*.tmp' }
     it { is_expected.to match('foo.tmp') }
+    it { is_expected.to match('foo/bar.tmp') }
+    it { is_expected.to match('foo/bar.tmp/baz') }
     it { is_expected.to_not match('foo.rb') }
     it { is_expected.to be_inclusive }
+  end
+
+  describe 'handles inner globs' do
+    subject { GitIgnoreSpec.new 'foo-*-bar' }
+    it { is_expected.to match('foo--bar') }
+    it { is_expected.to match('foo-hello-bar') }
+    it { is_expected.to match('a/foo-hello-bar') }
+    it { is_expected.to match('foo-hello-bar/b') }
+    it { is_expected.to match('a/foo-hello-bar/b') }
+    it { is_expected.to_not match('foo.tmp') }
+  end
+
+  describe 'handles postfix globs' do
+    subject { GitIgnoreSpec.new '~temp-*' }
+    it { is_expected.to match('~temp-') }
+    it { is_expected.to match('~temp-foo') }
+    it { is_expected.to match('foo/~temp-bar') }
+    it { is_expected.to match('foo/~temp-bar/baz') }
+    it { is_expected.to_not match('~temp') }
   end
 
   describe 'handles multiple globs' do
@@ -182,6 +204,16 @@ describe GitIgnoreSpec do
     it { is_expected.to be_inclusive }
   end
 
+  describe 'handles simple single paths' do
+    subject { GitIgnoreSpec.new 'spam' }
+    it { is_expected.to match('spam') }
+    it { is_expected.to match('spam/') }
+    it { is_expected.to match('foo/spam') }
+    it { is_expected.to match('spam/foo') }
+    it { is_expected.to match('foo/spam/bar') }
+    it { is_expected.to_not match('foo') }
+  end
+
   # Two consecutive asterisks ("**") in patterns matched against full pathname
   # may have special meaning:
 
@@ -203,6 +235,7 @@ describe GitIgnoreSpec do
     it { is_expected.to_not match('foo') }
     it { is_expected.to match('foo/bar') }
     it { is_expected.to match('baz/foo/bar') }
+    it { is_expected.to match('baz/foo/bar/sub') }
     it { is_expected.to_not match('baz/foo/bar.rb') }
     it { is_expected.to_not match('baz/bananafoo/bar') }
     it { is_expected.to be_inclusive }
@@ -215,8 +248,8 @@ describe GitIgnoreSpec do
     subject { GitIgnoreSpec.new 'abc/**' }
     it { is_expected.to match('abc/') }
     it { is_expected.to match('abc/def') }
-    it { is_expected.to_not match('123/abc/def') } # TODO: Maybe?
-    it { is_expected.to_not match('123/456/abc/') } # TODO: Maybe?
+    it { is_expected.to_not match('123/abc/def') }
+    it { is_expected.to_not match('123/456/abc/') }
     it { is_expected.to be_inclusive }
   end
 
@@ -253,5 +286,20 @@ describe GitIgnoreSpec do
     it { is_expected.to_not match('123/a/x/b') }
     it { is_expected.to_not be_inclusive }
   end
+
+  describe 'does not match single absolute paths' do
+    subject { GitIgnoreSpec.new "/" }
+    it { is_expected.to_not match('foo.tmp') }
+    it { is_expected.to_not match(' ') }
+    it { is_expected.to_not match('a/b') }
+  end
+
+  describe 'nested paths are relative to the file' do
+    subject { GitIgnoreSpec.new 'foo/spam' }
+    it { is_expected.to match('foo/spam') }
+    it { is_expected.to match('foo/spam/bar') }
+    it { is_expected.to_not match('bar/foo/spam') }
+  end
+
 
 end

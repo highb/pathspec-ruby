@@ -11,6 +11,5 @@ group(:development) do
     gem 'ruby-debug'
   else
     gem 'pry', :require => 'pry'
-    gem 'pry-debugger'
   end
 end
