@@ -307,6 +307,15 @@ REGEX
       expect(subject.match('anna')).to be false
       expect(subject.match('abba')).to be true
     end
+
+    context "#from_filename" do
+      it "forwards the type argument" do
+        expect(File).to receive(:open).and_return(anything)
+        expect(PathSpec).to receive(:from_lines).with(anything, :regex)
+
+        PathSpec.from_filename "/some/file", :regex
+      end
+    end
   end
 
   context "unsuppored spec type" do
