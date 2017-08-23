@@ -75,7 +75,7 @@ class PathSpec
 
   # Generate specs from a filename, such as a .gitignore
   def self.from_filename(filename, type=:git)
-    self.from_lines(File.open(filename, 'r'))
+    self.from_lines(File.open(filename, 'r'), type)
   end
 
   def self.from_lines(lines, type=:git)
