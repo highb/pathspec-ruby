@@ -310,8 +310,10 @@ REGEX
 
     context "#from_filename" do
       it "forwards the type argument" do
-        expect(File).to receive(:open).and_return(anything)
-        expect(PathSpec).to receive(:from_lines).with(anything, :regex)
+        io = double
+
+        expect(File).to receive(:open).and_yield(io)
+        expect(PathSpec).to receive(:from_lines).with(io, :regex)
 
         PathSpec.from_filename "/some/file", :regex
       end
