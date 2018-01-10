@@ -1,17 +1,19 @@
 require 'pathspec/spec'
 
-class RegexSpec < Spec
-  def initialize(regex)
-    @regex = Regexp.compile regex
+class PathSpec
+  class RegexSpec < Spec
+    def initialize(regex)
+      @regex = Regexp.compile regex
 
-    super
-  end
+      super
+    end
 
-  def inclusive?
-    true
-  end
+    def inclusive?
+      true
+    end
 
-  def match(path)
-    @regex.match(path) if @regex
+    def match(path)
+      @regex.match(path) if @regex
+    end
   end
 end

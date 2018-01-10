@@ -1,20 +1,20 @@
 require 'spec_helper'
 require 'pathspec/gitignorespec'
 
-describe GitIgnoreSpec do
+describe PathSpec::GitIgnoreSpec do
   # Original specification by http://git-scm.com/docs/gitignore
 
   # A blank line matches no files, so it can serve as a separator for
   # readability.
   describe 'does nothing for newlines' do
-    subject { GitIgnoreSpec.new "\n" }
+    subject { PathSpec::GitIgnoreSpec.new "\n" }
     it { is_expected.to_not match('foo.tmp') }
     it { is_expected.to_not match(' ') }
     it { is_expected.to_not be_inclusive }
   end
 
   describe 'does nothing for blank strings' do
-    subject { GitIgnoreSpec.new '' }
+    subject { PathSpec::GitIgnoreSpec.new '' }
     it { is_expected.to_not match 'foo.tmp' }
     it { is_expected.to_not match ' ' }
     it { is_expected.to_not be_inclusive }
@@ -23,21 +23,21 @@ describe GitIgnoreSpec do
   # A line starting with # serves as a comment. Put a backslash ("\") in front
   # of the first hash for patterns that begin with a hash.
   describe 'does nothing for comments' do
-    subject { GitIgnoreSpec.new '# this is a gitignore style comment' }
+    subject { PathSpec::GitIgnoreSpec.new '# this is a gitignore style comment' }
     it { is_expected.to_not match('foo.tmp') }
     it { is_expected.to_not match(' ') }
     it { is_expected.to_not be_inclusive }
   end
 
   describe 'ignores comment char with a slash' do
-    subject { GitIgnoreSpec.new '\#averystrangefile' }
+    subject { PathSpec::GitIgnoreSpec.new '\#averystrangefile' }
     it { is_expected.to match('#averystrangefile') }
     it { is_expected.to_not match('foobar') }
     it { is_expected.to be_inclusive }
   end
 
   describe 'escapes characters with slashes' do
-    subject { GitIgnoreSpec.new 'twinkletwinkle\*' }
+    subject { PathSpec::GitIgnoreSpec.new 'twinkletwinkle\*' }
     it { is_expected.to match('twinkletwinkle*') }
     it { is_expected.to_not match('twinkletwinkletwinkle') }
     it { is_expected.to be_inclusive }
@@ -45,7 +45,7 @@ describe GitIgnoreSpec do
 
   # Trailing spaces are ignored unless they are quoted with backlash ("\").
   describe 'ignores trailing spaces' do
-    subject { GitIgnoreSpec.new 'foo        ' }
+    subject { PathSpec::GitIgnoreSpec.new 'foo        ' }
     it { is_expected.to match('foo') }
     it { is_expected.to_not match('foo        ') }
     it { is_expected.to be_inclusive }
@@ -62,7 +62,7 @@ describe GitIgnoreSpec do
   # backslash ("\") in front of the first "!" for patterns that begin with a
   # literal "!", for example, "\!important!.txt".
   describe 'is exclusive of !' do
-    subject { GitIgnoreSpec.new '!important.txt' }
+    subject { PathSpec::GitIgnoreSpec.new '!important.txt' }
     it { is_expected.to match('important.txt') }
     it { is_expected.to_not be_inclusive }
     it { is_expected.to_not match('!important.txt') }
@@ -74,7 +74,7 @@ describe GitIgnoreSpec do
   # will not match a regular file or a symbolic link foo (this is consistent
   # with the way how pathspec works in general in Git).
   describe 'trailing slashes match directories and their contents but not regular files or symlinks' do
-    subject { GitIgnoreSpec.new 'foo/' }
+    subject { PathSpec::GitIgnoreSpec.new 'foo/' }
     it { is_expected.to match('foo/') }
     it { is_expected.to match('foo/bar') }
     it { is_expected.to match('baz/foo/bar') }
@@ -87,7 +87,7 @@ describe GitIgnoreSpec do
   # of the .gitignore file (relative to the toplevel of the work tree if not
   # from a .gitignore file).
   describe 'handles basic globbing' do
-    subject { GitIgnoreSpec.new '*.tmp' }
+    subject { PathSpec::GitIgnoreSpec.new '*.tmp' }
     it { is_expected.to match('foo.tmp') }
     it { is_expected.to match('foo/bar.tmp') }
     it { is_expected.to match('foo/bar.tmp/baz') }
@@ -96,7 +96,7 @@ describe GitIgnoreSpec do
   end
 
   describe 'handles inner globs' do
-    subject { GitIgnoreSpec.new 'foo-*-bar' }
+    subject { PathSpec::GitIgnoreSpec.new 'foo-*-bar' }
     it { is_expected.to match('foo--bar') }
     it { is_expected.to match('foo-hello-bar') }
     it { is_expected.to match('a/foo-hello-bar') }
@@ -106,7 +106,7 @@ describe GitIgnoreSpec do
   end
 
   describe 'handles postfix globs' do
-    subject { GitIgnoreSpec.new '~temp-*' }
+    subject { PathSpec::GitIgnoreSpec.new '~temp-*' }
     it { is_expected.to match('~temp-') }
     it { is_expected.to match('~temp-foo') }
     it { is_expected.to match('foo/~temp-bar') }
@@ -115,14 +115,14 @@ describe GitIgnoreSpec do
   end
 
   describe 'handles multiple globs' do
-    subject { GitIgnoreSpec.new '*.middle.*' }
+    subject { PathSpec::GitIgnoreSpec.new '*.middle.*' }
     it { is_expected.to match('hello.middle.rb') }
     it { is_expected.to_not match('foo.rb') }
     it { is_expected.to be_inclusive }
   end
 
   describe 'handles dir globs' do
-    subject { GitIgnoreSpec.new 'dir/*' }
+    subject { PathSpec::GitIgnoreSpec.new 'dir/*' }
     it { is_expected.to match('dir/foo') }
     it { is_expected.to_not match('foo/') }
     it { is_expected.to be_inclusive }
@@ -134,14 +134,14 @@ describe GitIgnoreSpec do
   # "Documentation/git.html" but not "Documentation/ppc/ppc.html" or
   # "tools/perf/Documentation/perf.html".
   describe 'handles dir globs' do
-    subject { GitIgnoreSpec.new 'dir/*' }
+    subject { PathSpec::GitIgnoreSpec.new 'dir/*' }
     it { is_expected.to match('dir/foo') }
     it { is_expected.to_not match('foo/') }
     it { is_expected.to be_inclusive }
   end
 
   describe 'handles globs inside of dirs' do
-    subject { GitIgnoreSpec.new 'Documentation/*.html' }
+    subject { PathSpec::GitIgnoreSpec.new 'Documentation/*.html' }
     it { is_expected.to match('Documentation/git.html') }
     it { is_expected.to_not match('Documentation/ppc/ppc.html') }
     it { is_expected.to_not match('tools/perf/Documentation/perf.html') } # TODO: Or is it? Git 2 weirdness?
@@ -149,14 +149,14 @@ describe GitIgnoreSpec do
   end
 
   describe 'handles wildcards' do
-    subject { GitIgnoreSpec.new 'jokeris????' }
+    subject { PathSpec::GitIgnoreSpec.new 'jokeris????' }
     it { is_expected.to match('jokeriswild') }
     it { is_expected.to_not match('jokerisfat') }
     it { is_expected.to be_inclusive }
   end
 
   describe 'handles brackets' do
-    subject { GitIgnoreSpec.new '*[eu][xl]*' }
+    subject { PathSpec::GitIgnoreSpec.new '*[eu][xl]*' }
     it { is_expected.to match('youknowregex') }
     it { is_expected.to match('youknowregularexpressions') }
     it { is_expected.to_not match('youknownothing') }
@@ -164,19 +164,19 @@ describe GitIgnoreSpec do
   end
 
   describe 'handles unmatched brackets' do
-    subject { GitIgnoreSpec.new '*[*[*' }
+    subject { PathSpec::GitIgnoreSpec.new '*[*[*' }
     it { is_expected.to match('bracket[oh[wow') }
     it { is_expected.to be_inclusive }
   end
 
   describe 'handles brackets with carats' do
-    subject { GitIgnoreSpec.new '*[^]' }
+    subject { PathSpec::GitIgnoreSpec.new '*[^]' }
     it { is_expected.to match('myfavorite^') }
     it { is_expected.to be_inclusive }
   end
 
   describe 'handles brackets for brackets' do
-    subject { GitIgnoreSpec.new '*[]]' }
+    subject { PathSpec::GitIgnoreSpec.new '*[]]' }
     it { is_expected.to match('yodawg[]]') }
     it { is_expected.to be_inclusive }
   end
@@ -189,7 +189,7 @@ describe GitIgnoreSpec do
   end
 
   describe 'handles negated brackets' do
-    subject { GitIgnoreSpec.new 'ab[!cd]ef' }
+    subject { PathSpec::GitIgnoreSpec.new 'ab[!cd]ef' }
     it { is_expected.to_not match('abcef') }
     it { is_expected.to match('abzef') }
     it { is_expected.to be_inclusive }
@@ -198,14 +198,14 @@ describe GitIgnoreSpec do
   # A leading slash matches the beginning of the pathname. For example, "/*.c"
   # matches "cat-file.c" but not "mozilla-sha1/sha1.c".
   describe 'handles leading / as relative to base directory' do
-    subject { GitIgnoreSpec.new '/*.c' }
+    subject { PathSpec::GitIgnoreSpec.new '/*.c' }
     it { is_expected.to match('cat-file.c') }
     it { is_expected.to_not match('mozilla-sha1/sha1.c') }
     it { is_expected.to be_inclusive }
   end
 
   describe 'handles simple single paths' do
-    subject { GitIgnoreSpec.new 'spam' }
+    subject { PathSpec::GitIgnoreSpec.new 'spam' }
     it { is_expected.to match('spam') }
     it { is_expected.to match('spam/') }
     it { is_expected.to match('foo/spam') }
@@ -222,7 +222,7 @@ describe GitIgnoreSpec do
   # pattern "foo". "**/foo/bar" matches file or directory "bar" anywhere that is
   # directly under directory "foo".
   describe 'handles prefixed ** as searching any location' do
-    subject { GitIgnoreSpec.new '**/foo' }
+    subject { PathSpec::GitIgnoreSpec.new '**/foo' }
     it { is_expected.to match('foo') }
     it { is_expected.to match('bar/foo') }
     it { is_expected.to match('baz/bar/foo') }
@@ -231,7 +231,7 @@ describe GitIgnoreSpec do
   end
 
   describe 'handles prefixed ** with a directory as searching a file under a directory in any location' do
-    subject { GitIgnoreSpec.new '**/foo/bar' }
+    subject { PathSpec::GitIgnoreSpec.new '**/foo/bar' }
     it { is_expected.to_not match('foo') }
     it { is_expected.to match('foo/bar') }
     it { is_expected.to match('baz/foo/bar') }
@@ -245,7 +245,7 @@ describe GitIgnoreSpec do
   # all files inside directory "abc", relative to the location of the .gitignore
   # file, with infinite depth.
   describe 'handles leading /** as all files inside a directory' do
-    subject { GitIgnoreSpec.new 'abc/**' }
+    subject { PathSpec::GitIgnoreSpec.new 'abc/**' }
     it { is_expected.to match('abc/') }
     it { is_expected.to match('abc/def') }
     it { is_expected.to_not match('123/abc/def') }
@@ -257,7 +257,7 @@ describe GitIgnoreSpec do
   # more directories. For example, "a/**/b" matches "a/b", "a/x/b", "a/x/y/b"
   # and so on.
   describe 'handles /** in the middle of a path' do
-    subject { GitIgnoreSpec.new 'a/**/b' }
+    subject { PathSpec::GitIgnoreSpec.new 'a/**/b' }
     it { is_expected.to match('a/b') }
     it { is_expected.to match('a/x/b') }
     it { is_expected.to match('a/x/y/b') }
@@ -267,7 +267,7 @@ describe GitIgnoreSpec do
   end
 
   describe 'matches all paths when given **' do
-    subject { GitIgnoreSpec.new '**' }
+    subject { PathSpec::GitIgnoreSpec.new '**' }
 
     it { is_expected.to match('a/b') }
     it { is_expected.to match('a/x/b') }
@@ -278,7 +278,7 @@ describe GitIgnoreSpec do
 
   # Other consecutive asterisks are considered invalid.
   describe 'considers other consecutive asterisks invalid' do
-    subject { GitIgnoreSpec.new 'a/***/b' }
+    subject { PathSpec::GitIgnoreSpec.new 'a/***/b' }
     it { is_expected.to_not match('a/b') }
     it { is_expected.to_not match('a/x/b') }
     it { is_expected.to_not match('a/x/y/b') }
@@ -288,14 +288,14 @@ describe GitIgnoreSpec do
   end
 
   describe 'does not match single absolute paths' do
-    subject { GitIgnoreSpec.new "/" }
+    subject { PathSpec::GitIgnoreSpec.new "/" }
     it { is_expected.to_not match('foo.tmp') }
     it { is_expected.to_not match(' ') }
     it { is_expected.to_not match('a/b') }
   end
 
   describe 'nested paths are relative to the file' do
-    subject { GitIgnoreSpec.new 'foo/spam' }
+    subject { PathSpec::GitIgnoreSpec.new 'foo/spam' }
     it { is_expected.to match('foo/spam') }
     it { is_expected.to match('foo/spam/bar') }
     it { is_expected.to_not match('bar/foo/spam') }
