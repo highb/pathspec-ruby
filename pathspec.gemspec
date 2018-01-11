@@ -16,4 +16,5 @@ Gem::Specification.new do |s|
   s.license = 'Apache'
   s.add_development_dependency 'bundler', '~> 1.0'
   s.add_development_dependency 'rspec', '~> 3.0'
+  s.add_development_dependency 'fakefs', '~> 0.12'
 end
