@@ -1,7 +1,7 @@
 pathspec-ruby
 =============
 
-[![Gem Version](https://badge.fury.io/rb/pathspec.svg)](https://badge.fury.io/rb/pathspec) [![Build Status](https://travis-ci.org/highb/pathspec-ruby.svg?branch=master)](https://travis-ci.org/highb/pathspec-ruby) [![codecov](https://codecov.io/gh/highb/pathspec-ruby/branch/master/graph/badge.svg)](https://codecov.io/gh/highb/pathspec-ruby)
+[![Gem Version](https://badge.fury.io/rb/pathspec.svg)](https://badge.fury.io/rb/pathspec) [![Build Status](https://travis-ci.org/highb/pathspec-ruby.svg?branch=master)](https://travis-ci.org/highb/pathspec-ruby) [![Maintainability](https://api.codeclimate.com/v1/badges/4f3b5917e01fb34f790d/maintainability)](https://codeclimate.com/github/highb/pathspec-ruby/maintainability)
 
 Supported Rubies:
 - 2.2.7 (Maintenance)
