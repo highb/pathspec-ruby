@@ -3,10 +3,11 @@ pathspec-ruby
 
 [![Gem Version](https://badge.fury.io/rb/pathspec.svg)](https://badge.fury.io/rb/pathspec) [![Build Status](https://travis-ci.org/highb/pathspec-ruby.svg?branch=master)](https://travis-ci.org/highb/pathspec-ruby) [![Maintainability](https://api.codeclimate.com/v1/badges/4f3b5917e01fb34f790d/maintainability)](https://codeclimate.com/github/highb/pathspec-ruby/maintainability)
 
-Supported Rubies:
-- 2.2.7 (Maintenance)
-- 2.3.4 (Stable)
-- 2.4.1 (Stable)
+[Supported Rubies](https://www.ruby-lang.org/en/downloads/):
+- 2.2.9 (Maintenance)
+- 2.3.6 (Stable)
+- 2.4.3 (Stable)
+- 2.5.0 (Stable)
 
 Match Path Specifications, such as .gitignore, in Ruby!
 
