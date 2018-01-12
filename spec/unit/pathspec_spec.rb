@@ -4,30 +4,31 @@ require 'pathspec'
 require 'fakefs/spec_helpers'
 
 describe PathSpec do
-  shared_examples "standard gitignore negation" do
+  shared_examples 'standard gitignore negation' do
     it { is_expected.to_not match('important.txt') }
     it { is_expected.to_not match('foo/important.txt') }
     it { is_expected.to match('foo/bar/') }
   end
 
-  context "initialization" do
-    context "from multilines" do
-      context "#new" do
-        subject { PathSpec.new <<-IGNORELINES
+  context 'initialization' do
+    context 'from multilines' do
+      context '#new' do
+        subject {
+          PathSpec.new <<-IGNORELINES
 !important.txt
 foo/**
 /bar/baz
 IGNORELINES
         }
 
-        it_behaves_like "standard gitignore negation"
+        it_behaves_like 'standard gitignore negation'
       end
     end
 
-    context "from a string with no newlines" do
-      let(:str) { "foo/**" }
+    context 'from a string with no newlines' do
+      let(:str) { 'foo/**' }
 
-      context "#new" do
+      context '#new' do
         subject { PathSpec.new str }
 
         it { is_expected.to match('foo/important.txt') }
@@ -35,67 +36,67 @@ IGNORELINES
       end
     end
 
-    context "from a non-string/non-enumerable" do
-      it "throws an exception" do
-        expect { PathSpec.new Object.new }.to raise_error
+    context 'from a non-string/non-enumerable' do
+      it 'throws an exception' do
+        expect { PathSpec.new Object.new }.to raise_error(/Cannot make Pathspec/)
       end
     end
 
-    context "from array of gitignore strings" do
-      let(:arr) { ["!important.txt", "foo/**", "/bar/baz"] }
+    context 'from array of gitignore strings' do
+      let(:arr) { ['!important.txt', 'foo/**', '/bar/baz'] }
 
-      context "#new" do
+      context '#new' do
         subject { PathSpec.new arr }
 
-        it_behaves_like "standard gitignore negation"
+        it_behaves_like 'standard gitignore negation'
       end
 
-      context "#from_lines" do
+      context '#from_lines' do
         subject {
           PathSpec.from_lines(arr)
         }
 
-        it_behaves_like "standard gitignore negation"
+        it_behaves_like 'standard gitignore negation'
       end
 
-      context "#add array" do
+      context '#add array' do
         subject {
           ps = PathSpec.new []
           ps.add arr
         }
 
-        it_behaves_like "standard gitignore negation"
+        it_behaves_like 'standard gitignore negation'
       end
     end
 
-    context "from linedelimited gitignore string" do
+    context 'from linedelimited gitignore string' do
       let(:line) { "!important.txt\nfoo/**\n/bar/baz\n" }
 
-      context "#new" do
+      context '#new' do
         subject { PathSpec.new line }
 
-        it_behaves_like "standard gitignore negation"
+        it_behaves_like 'standard gitignore negation'
       end
 
-      context "#from_lines" do
+      context '#from_lines' do
         subject {
           PathSpec.from_lines(line)
         }
 
-        it_behaves_like "standard gitignore negation"
+        it_behaves_like 'standard gitignore negation'
       end
 
-      context "#add" do
+      context '#add' do
         subject {
           ps = PathSpec.new
           ps.add line
         }
 
-        it_behaves_like "standard gitignore negation"
+        it_behaves_like 'standard gitignore negation'
       end
     end
 
-    context "from a gitignore file" do
+    context 'from a gitignore file' do
       include FakeFS::SpecHelpers
 
       let(:filename) { '.gitignore' }
@@ -107,24 +108,24 @@ IGNORELINES
         }
       end
 
-      context "#new" do
+      context '#new' do
         subject {
           PathSpec.new File.open(filename, 'r')
         }
 
-        it_behaves_like "standard gitignore negation"
+        it_behaves_like 'standard gitignore negation'
       end
 
-      context "#from_filename" do
+      context '#from_filename' do
         subject {
           PathSpec.from_filename(filename)
         }
 
-        it_behaves_like "standard gitignore negation"
+        it_behaves_like 'standard gitignore negation'
       end
     end
 
-    context "from multiple gitignore files" do
+    context 'from multiple gitignore files' do
       include FakeFS::SpecHelpers
 
       let(:filenames) { ['.gitignore', '.otherignore'] }
@@ -141,26 +142,26 @@ IGNORELINES
         }
       end
 
-      context "#new" do
+      context '#new' do
         subject {
           arr = filenames.collect { |f| File.open(f, 'r') }
           PathSpec.new arr
         }
 
-        it_behaves_like "standard gitignore negation"
+        it_behaves_like 'standard gitignore negation'
 
         it { is_expected.to_not match('banana') }
         it { is_expected.to match('banananananana') }
       end
 
-      context "#add" do
+      context '#add' do
         subject {
           arr = filenames.collect { |f| File.open(f, 'r') }
           ps = PathSpec.new
           ps.add arr
         }
 
-        it_behaves_like "standard gitignore negation"
+        it_behaves_like 'standard gitignore negation'
 
         it { is_expected.to_not match('banana') }
         it { is_expected.to match('banananananana') }
@@ -168,12 +169,13 @@ IGNORELINES
     end
   end
 
-  context "#match_tree" do
+  context '#match_tree' do
     include FakeFS::SpecHelpers
 
-    context "unix" do
+    context 'unix' do
       let(:root) {'/tmp/project'}
-      let(:gitignore) { <<-GITIGNORE
+      let(:gitignore) {
+        <<-GITIGNORE
   !**/important.txt
   abc/**
   GITIGNORE
@@ -194,12 +196,13 @@ IGNORELINES
       it { is_expected.to include "#{root}/abc".to_s }
       it { is_expected.to include "#{root}/abc/1".to_s }
       it { is_expected.not_to include "#{root}/abc/important.txt".to_s }
-      it { is_expected.not_to include "#{root}".to_s }
+      it { is_expected.not_to include root.to_s.to_s }
     end
 
-    context "windows" do
+    context 'windows' do
       let(:root) {'C:/project'}
-      let(:gitignore) { <<-GITIGNORE
+      let(:gitignore) {
+        <<-GITIGNORE
   !**/important.txt
   abc/**
   GITIGNORE
@@ -220,53 +223,59 @@ IGNORELINES
       it { is_expected.to include "#{root}/abc".to_s }
       it { is_expected.to include "#{root}/abc/1".to_s }
       it { is_expected.not_to include "#{root}/abc/important.txt".to_s }
-      it { is_expected.not_to include "#{root}".to_s }
+      it { is_expected.not_to include root.to_s.to_s }
     end
   end
 
-  context "#match_paths" do
-    let(:gitignore) { <<-GITIGNORE
+  context '#match_paths' do
+    let(:gitignore) {
+      <<-GITIGNORE
 !**/important.txt
 /abc/**
 GITIGNORE
     }
 
-    context "with no root arg" do
+    context 'with no root arg' do
       subject { PathSpec.new(gitignore).match_paths(['/abc/important.txt', '/abc/', '/abc/1']) }
 
-      it { is_expected.to include "/abc/" }
-      it { is_expected.to include "/abc/1" }
-      it { is_expected.not_to include "/abc/important.txt" }
+      it { is_expected.to include '/abc/' }
+      it { is_expected.to include '/abc/1' }
+      it { is_expected.not_to include '/abc/important.txt' }
     end
 
     context 'relative to non-root dir' do
-      subject { PathSpec.new(gitignore).match_paths([
-        '/def/abc/important.txt',
-        '/def/abc/',
-        '/def/abc/1'], '/def') }
+      subject {
+        PathSpec.new(gitignore).match_paths([
+                                              '/def/abc/important.txt',
+                                              '/def/abc/',
+                                              '/def/abc/1'
+                                            ], '/def') }
 
-      it { is_expected.to include "/def/abc/" }
-      it { is_expected.to include "/def/abc/1" }
-      it { is_expected.not_to include "/def/abc/important.txt" }
+      it { is_expected.to include '/def/abc/' }
+      it { is_expected.to include '/def/abc/1' }
+      it { is_expected.not_to include '/def/abc/important.txt' }
     end
 
     context 'relative to windows drive letter' do
-      subject { PathSpec.new(gitignore).match_paths([
-        'C:/def/abc/important.txt',
-        'C:/def/abc/',
-        'C:/def/abc/1'], 'C:/def/') }
+      subject {
+        PathSpec.new(gitignore).match_paths([
+                                              'C:/def/abc/important.txt',
+                                              'C:/def/abc/',
+                                              'C:/def/abc/1'
+                                            ], 'C:/def/') }
 
-      it { is_expected.to include "C:/def/abc/" }
-      it { is_expected.to include "C:/def/abc/1" }
-      it { is_expected.not_to include "C:/def/abc/important.txt" }
+      it { is_expected.to include 'C:/def/abc/' }
+      it { is_expected.to include 'C:/def/abc/1' }
+      it { is_expected.not_to include 'C:/def/abc/important.txt' }
     end
   end
 
   # Example to exclude everything except a specific directory foo/bar (note
   # the /* - without the slash, the wildcard would also exclude everything
   # within foo/bar): (from git-scm.com)
-  context "very specific gitignore" do
-    let(:gitignore) { <<-GITIGNORE
+  context 'very specific gitignore' do
+    let(:gitignore) {
+      <<-GITIGNORE
 # exclude everything except directory foo/bar
 /*
 !/foo
@@ -277,13 +286,14 @@ GITIGNORE
 
     subject { PathSpec.new(gitignore) }
 
-    it { is_expected.not_to match("foo/bar") }
-    it { is_expected.to match("anything") }
-    it { is_expected.to match("foo/otherthing") }
+    it { is_expected.not_to match('foo/bar') }
+    it { is_expected.to match('anything') }
+    it { is_expected.to match('foo/otherthing') }
   end
 
-  context "#empty" do
-    let(:gitignore) { <<-GITIGNORE
+  context '#empty' do
+    let(:gitignore) {
+      <<-GITIGNORE
 # A comment
 GITIGNORE
     }
@@ -295,39 +305,51 @@ GITIGNORE
     end
   end
 
-  context "regex file" do
-    let(:regexfile) { <<-REGEX
+  context 'regex file' do
+    let(:regexfile) {
+      <<-REGEX
 ab*a
 REGEX
     }
 
     subject { PathSpec.new regexfile, :regex}
 
-    it "matches the regex" do
+    it 'matches the regex' do
       expect(subject.match('anna')).to be false
       expect(subject.match('abba')).to be true
     end
 
-    context "#from_filename" do
-      it "forwards the type argument" do
+    context '#from_filename' do
+      it 'forwards the type argument' do
         io = double
 
         expect(File).to receive(:open).and_yield(io)
         expect(PathSpec).to receive(:from_lines).with(io, :regex)
 
-        PathSpec.from_filename "/some/file", :regex
+        PathSpec.from_filename '/some/file', :regex
+      end
+
+      it 'reads an example ruby gitignore file' do
+        spec = PathSpec.from_filename 'spec/files/gitignore_ruby', :git
+
+        expect(spec.match('coverage/')).to be true
+        expect(spec.match('coverage/index.html')).to be true
+        expect(spec.match('pathspec-0.0.1.gem')).to be true
+        expect(spec.match('lib/pathspec')).to be false
+        expect(spec.match('Gemfile')).to be false
       end
     end
   end
 
-  context "unsuppored spec type" do
-    let(:file) { <<-REGEX
+  context 'unsuppored spec type' do
+    let(:file) {
+      <<-REGEX
 This is some kind of nonsense.
 REGEX
     }
 
-    it "does not allow an unknown spec type" do
-      expect { PathSpec.new file, :foo}.to raise_error
+    it 'does not allow an unknown spec type' do
+      expect { PathSpec.new file, :foo}.to raise_error(/Unknown/)
     end
   end
 end

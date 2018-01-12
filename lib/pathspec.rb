@@ -3,15 +3,14 @@ require 'pathspec/regexspec'
 require 'find'
 require 'pathname'
 
+# Main PathSpec class, provides interfaces to various spec implementations
 class PathSpec
   attr_reader :specs
 
-  def initialize(lines=nil, type=:git)
+  def initialize(lines = nil, type = :git)
     @specs = []
 
-    if lines
-      add(lines, type)
-    end
+    add(lines, type) if lines
 
     self
   end
@@ -26,9 +25,7 @@ class PathSpec
 
   def specs_matching(path)
     @specs.select do |spec|
-      if spec.match(path)
-        spec
-      end
+      spec if spec.match(path)
     end
   end
 
@@ -41,58 +38,52 @@ class PathSpec
     Find.find(root) do |path|
       relpath = Pathname.new(path).relative_path_from(rootpath).to_s
       relpath += '/' if File.directory? path
-      if match(relpath)
-        matching << path
-      end
+      matching << path if match(relpath)
     end
 
     matching
   end
 
-  def match_path(path, root='/')
+  def match_path(path, root = '/')
     rootpath = Pathname.new(drive_letter_to_path(root))
     relpath = Pathname.new(drive_letter_to_path(path)).relative_path_from(rootpath).to_s
-    relpath = relpath + '/' if path[-1].chr == '/'
+    relpath += '/' if path[-1].chr == '/'
 
     match(relpath)
   end
 
-  def match_paths(paths, root='/')
+  def match_paths(paths, root = '/')
     matching = []
 
     paths.each do |path|
-      if match_path(path, root)
-        matching << path
-      end
+      matching << path if match_path(path, root)
     end
 
     matching
   end
 
   def drive_letter_to_path(path)
-    path.gsub(/^([a-zA-Z]):\//, '/\1/')
+    path.gsub(%r{^([a-zA-Z]):\/}, '/\1/')
   end
 
   # Generate specs from a filename, such as a .gitignore
-  def self.from_filename(filename, type=:git)
-    File.open(filename, 'r') { |io| self.from_lines(io, type) }
+  def self.from_filename(filename, type = :git)
+    File.open(filename, 'r') { |io| from_lines(io, type) }
   end
 
-  def self.from_lines(lines, type=:git)
-    self.new lines, type
+  def self.from_lines(lines, type = :git)
+    new lines, type
   end
 
   # Generate specs from lines of text
-  def add(obj, type=:git)
+  def add(obj, type = :git)
     spec_class = spec_type(type)
 
     if obj.respond_to?(:each_line)
       obj.each_line do |l|
         spec = spec_class.new(l.rstrip)
 
-        if !spec.regex.nil? && !spec.inclusive?.nil?
-          @specs << spec
-        end
+        @specs << spec if !spec.regex.nil? && !spec.inclusive?.nil?
       end
     elsif obj.respond_to?(:each)
       obj.each do |l|

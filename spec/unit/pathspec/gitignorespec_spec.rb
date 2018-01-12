@@ -288,7 +288,7 @@ describe PathSpec::GitIgnoreSpec do
   end
 
   describe 'does not match single absolute paths' do
-    subject { PathSpec::GitIgnoreSpec.new "/" }
+    subject { PathSpec::GitIgnoreSpec.new '/' }
     it { is_expected.to_not match('foo.tmp') }
     it { is_expected.to_not match(' ') }
     it { is_expected.to_not match('a/b') }
@@ -300,6 +300,4 @@ describe PathSpec::GitIgnoreSpec do
     it { is_expected.to match('foo/spam/bar') }
     it { is_expected.to_not match('bar/foo/spam') }
   end
-
-
 end
