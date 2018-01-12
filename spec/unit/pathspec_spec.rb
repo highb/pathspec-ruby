@@ -328,6 +328,16 @@ REGEX
 
         PathSpec.from_filename '/some/file', :regex
       end
+
+      it 'reads an example ruby gitignore file' do
+        spec = PathSpec.from_filename 'spec/files/gitignore_ruby', :git
+
+        expect(spec.match('coverage/')).to be true
+        expect(spec.match('coverage/index.html')).to be true
+        expect(spec.match('pathspec-0.0.1.gem')).to be true
+        expect(spec.match('lib/pathspec')).to be false
+        expect(spec.match('Gemfile')).to be false
+      end
     end
   end
 
