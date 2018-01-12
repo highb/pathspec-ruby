@@ -37,7 +37,7 @@ IGNORELINES
 
     context "from a non-string/non-enumerable" do
       it "throws an exception" do
-        expect { PathSpec.new Object.new }.to raise_error
+        expect { PathSpec.new Object.new }.to raise_error(/Cannot make Pathspec/)
       end
     end
 
@@ -327,7 +327,7 @@ REGEX
     }
 
     it "does not allow an unknown spec type" do
-      expect { PathSpec.new file, :foo}.to raise_error
+      expect { PathSpec.new file, :foo}.to raise_error(/Unknown/)
     end
   end
 end
