@@ -1,4 +1,5 @@
 class PathSpec
+  # Abstract spec
   class Spec
     attr_reader :regex
 

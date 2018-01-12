@@ -1,6 +1,7 @@
 require 'pathspec/regexspec'
 
 class PathSpec
+  # Class for parsing a .gitignore spec
   class GitIgnoreSpec < RegexSpec
     attr_reader :regex
 

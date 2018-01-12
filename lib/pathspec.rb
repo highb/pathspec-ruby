@@ -3,6 +3,7 @@ require 'pathspec/regexspec'
 require 'find'
 require 'pathname'
 
+# Main PathSpec class, provides interfaces to various spec implementations
 class PathSpec
   attr_reader :specs
 
@@ -62,7 +63,7 @@ class PathSpec
   end
 
   def drive_letter_to_path(path)
-    path.gsub(/^([a-zA-Z]):\//, '/\1/')
+    path.gsub(%r{^([a-zA-Z]):\/}, '/\1/')
   end
 
   # Generate specs from a filename, such as a .gitignore
