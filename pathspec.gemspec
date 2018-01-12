@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.test_files = s.files.grep(%r{^spec/})
   s.require_paths = ['lib']
   s.homepage = 'https://github.com/highb/pathspec-ruby'
-  s.license = 'Apache'
+  s.license = 'Apache-2.0'
   s.add_development_dependency 'bundler', '~> 1.0'
   s.add_development_dependency 'fakefs', '~> 0.12'
   s.add_development_dependency 'rake', '~> 12.3'
