@@ -6,48 +6,11 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: Include, TreatCommentsAsGroupSeparators.
-# Include: **/*.gemspec
-Gemspec/OrderedDependencies:
-  Exclude:
-    - 'pathspec.gemspec'
-
 # Offense count: 2
 # Cop supports --auto-correct.
 Layout/BlockEndNewline:
   Exclude:
     - 'spec/unit/pathspec_spec.rb'
-
-# Offense count: 4
-# Cop supports --auto-correct.
-Layout/EmptyLines:
-  Exclude:
-    - 'lib/pathspec/gitignorespec.rb'
-    - 'spec/unit/pathspec/gitignorespec_spec.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: empty_lines, no_empty_lines
-Layout/EmptyLinesAroundBlockBody:
-  Exclude:
-    - 'spec/unit/pathspec/gitignorespec_spec.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: AllowForAlignment, ForceEqualSignAlignment.
-Layout/ExtraSpacing:
-  Exclude:
-    - 'spec/unit/pathspec/spec_spec.rb'
-
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: IndentationWidth.
-# SupportedStyles: special_inside_parentheses, consistent, align_brackets
-Layout/IndentArray:
-  EnforcedStyle: consistent
 
 # Offense count: 6
 # Cop supports --auto-correct.
@@ -56,50 +19,6 @@ Layout/IndentArray:
 Layout/IndentHeredoc:
   Exclude:
     - 'spec/unit/pathspec_spec.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: normal, rails
-Layout/IndentationConsistency:
-  Exclude:
-    - 'Rakefile'
-
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: Width, IgnoredPatterns.
-Layout/IndentationWidth:
-  Exclude:
-    - 'Rakefile'
-
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: symmetrical, new_line, same_line
-Layout/MultilineArrayBraceLayout:
-  Exclude:
-    - 'spec/unit/pathspec_spec.rb'
-
-# Offense count: 10
-# Cop supports --auto-correct.
-Layout/MultilineBlockLayout:
-  Exclude:
-    - 'spec/unit/pathspec_spec.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, IndentationWidth.
-# SupportedStyles: aligned, indented
-Layout/MultilineOperationIndentation:
-  Exclude:
-    - 'lib/pathspec/gitignorespec.rb'
-
-# Offense count: 7
-# Cop supports --auto-correct.
-# Configuration parameters: .
-# SupportedStyles: space, no_space
-Layout/SpaceAroundEqualsInParameterDefault:
-  EnforcedStyle: no_space
 
 # Offense count: 8
 # Cop supports --auto-correct.
@@ -110,11 +29,6 @@ Layout/SpaceInsideBlockBraces:
   Exclude:
     - 'lib/pathspec.rb'
     - 'spec/unit/pathspec_spec.rb'
-
-# Offense count: 1
-Lint/HandleExceptions:
-  Exclude:
-    - 'Rakefile'
 
 # Offense count: 2
 Lint/ImplicitStringConcatenation:
@@ -146,7 +60,7 @@ Metrics/AbcSize:
 # Offense count: 7
 # Configuration parameters: CountComments, ExcludedMethods.
 Metrics/BlockLength:
-  Max: 256
+  Max: 270
 
 # Offense count: 2
 # Configuration parameters: CountBlocks.
@@ -171,13 +85,6 @@ Metrics/MethodLength:
 Metrics/PerceivedComplexity:
   Max: 32
 
-# Offense count: 3
-# Cop supports --auto-correct.
-Performance/RegexpMatch:
-  Exclude:
-    - 'lib/pathspec.rb'
-    - 'lib/pathspec/gitignorespec.rb'
-
 # Offense count: 25
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, ProceduralMethods, FunctionalMethods, IgnoredMethods.
@@ -188,38 +95,6 @@ Performance/RegexpMatch:
 Style/BlockDelimiters:
   Exclude:
     - 'spec/unit/pathspec_spec.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SingleLineConditionsOnly, IncludeTernaryExpressions.
-# SupportedStyles: assign_to_condition, assign_inside_condition
-Style/ConditionalAssignment:
-  Exclude:
-    - 'lib/pathspec/gitignorespec.rb'
-
-# Offense count: 4
-Style/Documentation:
-  Exclude:
-    - 'spec/**/*'
-    - 'test/**/*'
-    - 'lib/pathspec.rb'
-    - 'lib/pathspec/gitignorespec.rb'
-    - 'lib/pathspec/regexspec.rb'
-    - 'lib/pathspec/spec.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: compact, expanded
-Style/EmptyMethod:
-  Exclude:
-    - 'lib/pathspec/spec.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/Encoding:
-  Exclude:
-    - 'lib/pathspec/gitignorespec.rb'
 
 # Offense count: 11
 # Cop supports --auto-correct.
@@ -239,77 +114,6 @@ Style/FrozenStringLiteralComment:
     - 'spec/unit/pathspec/spec_spec.rb'
     - 'spec/unit/pathspec_spec.rb'
 
-# Offense count: 12
-# Cop supports --auto-correct.
-Style/IfUnlessModifier:
-  Exclude:
-    - 'lib/pathspec.rb'
-    - 'lib/pathspec/gitignorespec.rb'
-
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: AutoCorrect, EnforcedStyle.
-# SupportedStyles: predicate, comparison
-Style/NumericPredicate:
-  Exclude:
-    - 'spec/**/*'
-    - 'lib/pathspec/gitignorespec.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: PreferredDelimiters.
-Style/PercentLiteralDelimiters:
-  Exclude:
-    - 'pathspec.gemspec'
-
-# Offense count: 2
-# Cop supports --auto-correct.
-Style/RedundantSelf:
-  Exclude:
-    - 'lib/pathspec.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, AllowInnerSlashes.
-# SupportedStyles: slashes, percent_r, mixed
-Style/RegexpLiteral:
-  Exclude:
-    - 'lib/pathspec.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: implicit, explicit
-Style/RescueStandardError:
-  Exclude:
-    - 'spec/spec_helper.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: ConvertCodeThatCanStartToReturnNil.
-Style/SafeNavigation:
-  Exclude:
-    - 'lib/pathspec/regexspec.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/SelfAssignment:
-  Exclude:
-    - 'lib/pathspec.rb'
-
-# Offense count: 74
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, ConsistentQuotesInMultiline.
-# SupportedStyles: single_quotes, double_quotes
-Style/StringLiterals:
-  Exclude:
-    - 'lib/pathspec/gitignorespec.rb'
-    - 'lib/pathspec/spec.rb'
-    - 'pathspec.gemspec'
-    - 'spec/unit/pathspec/gitignorespec_spec.rb'
-    - 'spec/unit/pathspec/spec_spec.rb'
-    - 'spec/unit/pathspec_spec.rb'
-
 # Offense count: 1
 # Cop supports --auto-correct.
 # Configuration parameters: IgnoredMethods.
@@ -317,18 +121,6 @@ Style/StringLiterals:
 Style/SymbolProc:
   Exclude:
     - 'lib/pathspec.rb'
-
-# Offense count: 2
-# Cop supports --auto-correct.
-Style/UnneededInterpolation:
-  Exclude:
-    - 'spec/unit/pathspec_spec.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/WhileUntilModifier:
-  Exclude:
-    - 'lib/pathspec/gitignorespec.rb'
 
 # Offense count: 7
 # Configuration parameters: AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.

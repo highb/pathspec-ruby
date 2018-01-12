@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 require 'pathspec/regexspec'
 
 class PathSpec
@@ -50,9 +48,7 @@ class PathSpec
 
         # Remove leading back-slash escape for escaped hash ('#') or
         # exclamation mark ('!').
-        if pattern.start_with?('\\')
-          pattern = pattern[1..-1]
-        end
+        pattern = pattern[1..-1] if pattern.start_with?('\\')
 
         # Split pattern into segments. -1 to allow trailing slashes.
         pattern_segs = pattern.split('/', -1)
@@ -66,33 +62,28 @@ class PathSpec
         if pattern_segs[0].empty?
           pattern_segs.shift
         elsif pattern_segs.length == 1 ||
-          pattern_segs.length == 2 && pattern_segs[-1].empty?
+              pattern_segs.length == 2 && pattern_segs[-1].empty?
           # A pattern without a beginning slash ('/') will match any
           # descendant path. This is equivilent to "**/{pattern}". So,
           # prepend with double-asterisks to make pattern relative to
           # root.
           # EDGE CASE: This also holds for a single pattern with a
           # trailing slash (e.g. dir/).
-          if pattern_segs[0] != '**'
-            pattern_segs.insert(0, '**')
-          end
+          pattern_segs.insert(0, '**') if pattern_segs[0] != '**'
         end
 
         # A pattern ending with a slash ('/') will match all descendant
         # paths of if it is a directory but not if it is a regular file.
         # This is equivilent to "{pattern}/**". So, set last segment to
         # double asterisks to include all descendants.
-        if pattern_segs[-1].empty? && pattern_segs.length > 1
-          pattern_segs[-1] = '**'
-        end
+        pattern_segs[-1] = '**' if pattern_segs[-1].empty? && pattern_segs.length > 1
 
         # Handle platforms with backslash separated paths
-        if File::SEPARATOR == '\\'
-          path_sep = '\\\\'
-        else
-          path_sep = '/'
-        end
-
+        path_sep = if File::SEPARATOR == '\\'
+                     '\\\\'
+                   else
+                     '/'
+                   end
 
         # Build regular expression from pattern.
         regex = '^'
@@ -127,18 +118,14 @@ class PathSpec
 
             # Match single path segment.
           elsif seg == '*'
-            if need_slash
-              regex.concat(path_sep)
-            end
+            regex.concat(path_sep) if need_slash
 
             regex.concat("[^#{path_sep}]+")
             need_slash = true
 
           else
             # Match segment glob pattern.
-            if need_slash
-              regex.concat(path_sep)
-            end
+            regex.concat(path_sep) if need_slash
 
             regex.concat(translate_segment_glob(seg))
 
@@ -165,7 +152,7 @@ class PathSpec
     end
 
     def translate_segment_glob(pattern)
-      """
+      ''"
     Translates the glob pattern to a regular expression. This is used in
     the constructor to translate a path segment glob pattern to its
     corresponding regular expression.
@@ -173,7 +160,7 @@ class PathSpec
     *pattern* (``str``) is the glob pattern.
 
     Returns the regular expression (``str``).
-      """
+      "''
       # NOTE: This is derived from `fnmatch.translate()` and is similar to
       # the POSIX function `fnmatch()` with the `FNM_PATHNAME` flag set.
 
@@ -215,21 +202,14 @@ class PathSpec
         elsif char == '['
           j = i
           # Pass brack expression negation.
-          if j < pattern.size && pattern[j].chr == '!'
-            j += 1
-          end
+          j += 1 if j < pattern.size && pattern[j].chr == '!'
 
           # Pass first closing braket if it is at the beginning of the
           # expression.
-          if j < pattern.size && pattern[j].chr == ']'
-            j += 1
-          end
+          j += 1 if j < pattern.size && pattern[j].chr == ']'
 
           # Find closing braket. Stop once we reach the end or find it.
-          while j < pattern.size && pattern[j].chr != ']'
-            j += 1
-          end
-
+          j += 1 while j < pattern.size && pattern[j].chr != ']'
 
           if j < pattern.size
             expr = '['
@@ -254,7 +234,6 @@ class PathSpec
               expr += '\]'
               i += 1
             end
-
 
             # Build regex braket expression. Escape slashes so they are
             # treated as literal slashes by regex as defined by POSIX.
