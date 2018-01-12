@@ -7,7 +7,6 @@ pathspec-ruby
 - 2.2.9 (Maintenance)
 - 2.3.6 (Stable)
 - 2.4.3 (Stable)
-- 2.5.0 (Stable)
 
 Match Path Specifications, such as .gitignore, in Ruby!
 
