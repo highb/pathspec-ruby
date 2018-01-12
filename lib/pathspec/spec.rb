@@ -2,6 +2,7 @@ class PathSpec
   # Abstract spec
   class Spec
     attr_reader :regex
+    attr_reader :pattern
 
     def initialize(*_); end
 
@@ -11,6 +12,10 @@ class PathSpec
 
     def inclusive?
       true
+    end
+
+    def to_s
+      @pattern
     end
   end
 end
