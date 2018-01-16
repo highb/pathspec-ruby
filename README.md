@@ -26,7 +26,7 @@ require 'pathspec'
 # Create a .gitignore-style Pathspec by giving it newline separated gitignore
 # lines, an array of gitignore lines, or any other enumable object that will
 # give strings matching the .gitignore-style (File, etc.)
-gitignore = Pathspec.new File.read('.gitignore', 'r')
+gitignore = Pathspec.from_filename('spec/files/gitignore_readme')
 
 # Our .gitignore in this example contains:
 # !**/important.txt
@@ -34,18 +34,22 @@ gitignore = Pathspec.new File.read('.gitignore', 'r')
 
 # true, matches "abc/**"
 gitignore.match 'abc/def.rb'
+# CLI equivalent: pathspec.rb -f spec/files/gitignore_readme match 'abc/def.rb'
 
 # false, because it has been negated using the line "!**/important.txt"
 gitignore.match 'abc/important.txt'
+# CLI equivalent: pathspec.rb -f spec/files/gitignore_readme match 'abc/important.txt'
 
 # Give a path somewhere in the filesystem, and the Pathspec will return all
 # matching files underneath.
 # Returns ['/src/repo/abc/', '/src/repo/abc/123']
 gitignore.match_tree '/src/repo'
+# CLI equivalent: pathspec.rb -f spec/files/gitignore_readme tree /src/repo
 
 # Give an enumerable of paths, and Pathspec will return the ones that match.
 # Returns ['/abc/123', '/abc/']
 gitignore.match_paths ['/abc/123', '/abc/important.txt', '/abc/']
+# There is no CLI equivalent to this.
 ```
 
 ## Building/Installing from Source

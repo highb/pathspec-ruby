@@ -5,9 +5,25 @@ require 'fakefs/spec_helpers'
 
 describe PathSpec do
   shared_examples 'standard gitignore negation' do
-    it { is_expected.to_not match('important.txt') }
-    it { is_expected.to_not match('foo/important.txt') }
-    it { is_expected.to match('foo/bar/') }
+    it { is_expected.not_to match('important.txt') }
+    it { is_expected.not_to match('abc/important.txt') }
+    it { is_expected.to match('bar/baz/') }
+    it { is_expected.to match('foo/file') }
+    it { is_expected.not_to match('foo/important.txt') }
+    it { is_expected.to match('foo/subdir/file') }
+  end
+
+  # Specs that should be kept up to date with the README
+  context 'README.md' do
+    subject { PathSpec.from_filename 'spec/files/gitignore_readme' }
+
+    it { is_expected.to match('abc/def.rb') }
+    it { is_expected.not_to match('abc/important.txt') }
+    it do
+       expect(subject.match_paths(['/abc/123', '/abc/important.txt', '/abc/'])).to contain_exactly(
+         '/abc/123',
+         '/abc/')
+    end
   end
 
   context 'initialization' do
