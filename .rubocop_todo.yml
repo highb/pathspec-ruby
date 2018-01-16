@@ -55,11 +55,13 @@ Lint/Void:
 
 # Offense count: 3
 Metrics/AbcSize:
+  Enabled: false
   Max: 62
 
 # Offense count: 7
 # Configuration parameters: CountComments, ExcludedMethods.
 Metrics/BlockLength:
+  Enabled: false
   Max: 270
 
 # Offense count: 2

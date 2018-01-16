@@ -4,9 +4,10 @@ class PathSpec
   # Class for parsing a .gitignore spec
   class GitIgnoreSpec < RegexSpec
     attr_reader :regex
+    attr_reader :pattern
 
-    def initialize(pattern)
-      pattern = pattern.strip unless pattern.nil?
+    def initialize(original_pattern)
+      pattern = original_pattern.strip unless original_pattern.nil?
 
       # A pattern starting with a hash ('#') serves as a comment
       # (neither includes nor excludes files). Escape the hash with a
@@ -145,6 +146,9 @@ class PathSpec
 
         regex.concat('$')
         super(regex)
+        
+        # Copy original pattern
+        @pattern = original_pattern.dup
       end
     end
 
