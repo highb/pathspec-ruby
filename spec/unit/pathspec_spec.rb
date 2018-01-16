@@ -329,6 +329,20 @@ REGEX
         PathSpec.from_filename '/some/file', :regex
       end
 
+      it 'reads a simple regex file' do
+        spec = PathSpec.from_filename 'spec/files/regex_simple', :regex
+
+        expect(spec.match('artifact.md')).to be true
+        expect(spec.match('code.rb')).to be false
+      end
+
+      it 'reads a simple gitignore file' do
+        spec = PathSpec.from_filename 'spec/files/gitignore_simple', :git
+
+        expect(spec.match('artifact.md')).to be true
+        expect(spec.match('code.rb')).to be false
+      end
+
       it 'reads an example ruby gitignore file' do
         spec = PathSpec.from_filename 'spec/files/gitignore_ruby', :git
 
