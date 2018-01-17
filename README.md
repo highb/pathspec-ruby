@@ -20,6 +20,26 @@ Follows .gitignore syntax defined on [gitscm](http://git-scm.com/docs/gitignore)
 gem install pathspec
 ```
 
+## CLI Usage
+```bash
+➜  test-pathspec cat .gitignore
+*.swp
+/coverage/
+➜  test-pathspec be pathspec-rb specs_match "coverage/foo"
+/coverage/
+➜  test-pathspec be pathspec-rb specs_match "file.swp"
+*.swp
+➜ test-pathspec be pathspec-rb match "file.swp"
+➜ test-pathspec echo $?
+0
+➜  test-pathspec ls
+Gemfile      Gemfile.lock coverage     file.swp     source.rb
+➜  test-pathspec be pathspec-rb tree .
+./coverage
+./coverage/index.html
+./file.swp
+```
+
 ## Usage
 ```ruby
 require 'pathspec'
