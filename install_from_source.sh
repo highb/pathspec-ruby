@@ -9,4 +9,4 @@ bundle exec rspec spec
 bundle exec gem uninstall pathspec
 
 # Build and install!
-bundle exec gem build pathspec.gemspec && bundle exec gem install pathspec-0.2.0.gem
+bundle exec gem build pathspec.gemspec && bundle exec gem install pathspec-0.2.1.gem
