@@ -1,7 +1,12 @@
 # pathspec-ruby CHANGELOG
 
 ## 0.2.0 (Minor Release)
-- New namespace for gem: `PathSpec`: Everything is now namespaced under `PathSpec`, to prevent naming collisions with other libraries.
+- (Feature) A CLI tool, pathspec-rb, is now provided with the gem.
+- (API Change) New namespace for gem: `PathSpec`: Everything is now namespaced under `PathSpec`, to prevent naming collisions with other libraries. Thanks @tenderlove!
+- (License) License version updated to Apache 2. Thanks @kytrinyx!
+- (Maint) Pruned Supported Ruby Versions. We now test: 2.2.9, 2.3.6 and 2.4.3.
+- (Maint) Ruby 2.5.0 testing is blocked on Travis, but should work locally. Thanks @SumLare!
+- (Maint) Added Rubocop and made some corrections
 
 ## 0.1.2 (Patch/Bug Fix Release)
 - Fix for regexp matching Thanks @incase! #16
