@@ -15,6 +15,6 @@ function testversion {
 
 }
 
-for VERSION in 1.8.7 1.9.3 2.0.0 2.1.1; do
+for VERSION in 2.2.9 2.3.6 2.4.3 2.5.0; do
   testversion $VERSION
 done
