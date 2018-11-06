@@ -4,5 +4,4 @@ rvm:
   - 2.2.9
   - 2.3.6
   - 2.4.3
-# Disabled until https://github.com/travis-ci/travis-ci/issues/8969 is resolved
-# - 2.5.0
+  - 2.5.0
