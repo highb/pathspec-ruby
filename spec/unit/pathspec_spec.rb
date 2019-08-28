@@ -20,9 +20,10 @@ describe PathSpec do
     it { is_expected.to match('abc/def.rb') }
     it { is_expected.not_to match('abc/important.txt') }
     it do
-       expect(subject.match_paths(['/abc/123', '/abc/important.txt', '/abc/'])).to contain_exactly(
-         '/abc/123',
-         '/abc/')
+      expect(subject.match_paths(['/abc/123', '/abc/important.txt', '/abc/'])).to contain_exactly(
+        '/abc/123',
+        '/abc/'
+      )
     end
   end
 
