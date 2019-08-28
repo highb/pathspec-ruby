@@ -1,9 +1,9 @@
-pathspec-ruby
-=============
+# pathspec-ruby
 
 [![Gem Version](https://badge.fury.io/rb/pathspec.svg)](https://badge.fury.io/rb/pathspec) [![Build Status](https://travis-ci.org/highb/pathspec-ruby.svg?branch=master)](https://travis-ci.org/highb/pathspec-ruby) [![Maintainability](https://api.codeclimate.com/v1/badges/4f3b5917e01fb34f790d/maintainability)](https://codeclimate.com/github/highb/pathspec-ruby/maintainability)
 
 [Supported Rubies](https://www.ruby-lang.org/en/downloads/):
+
 - 2.4.6 (Maintenance)
 - 2.5.6 (Stable)
 - 2.6.4 (Stable)
@@ -15,11 +15,13 @@ Follows .gitignore syntax defined on [gitscm](http://git-scm.com/docs/gitignore)
 .gitignore functionality ported from [Python pathspec](https://pypi.python.org/pypi/pathspec/0.2.2) by [@cpburnz](https://github.com/cpburnz/python-path-specification)
 
 ## Build/Install from Rubygems
+
 ```shell
 gem install pathspec
 ```
 
 ## CLI Usage
+
 ```bash
 ➜  test-pathspec cat .gitignore
 *.swp
@@ -40,6 +42,7 @@ Gemfile      Gemfile.lock coverage     file.swp     source.rb
 ```
 
 ## Usage
+
 ```ruby
 require 'pathspec'
 
@@ -73,10 +76,12 @@ gitignore.match_paths ['/abc/123', '/abc/important.txt', '/abc/']
 ```
 
 ## Building/Installing from Source
+
 ```shell
 git clone git@github.com:highb/pathspec-ruby.git
 cd pathspec-ruby && bash ./build_from_source.sh
 ```
 
 ## Contributing
+
 Pull requests, bug reports, and feature requests welcome! :smile: I've tried to write exhaustive tests but who knows what cases I've missed.
