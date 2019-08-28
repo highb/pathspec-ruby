@@ -24,7 +24,7 @@ class PathSpec
 
         # Patterns containing three or more consecutive stars are invalid and
         # will be ignored.
-      elsif pattern =~ /\*\*\*+/
+      elsif /\*\*\*+/.match?(pattern)
         @regex = nil
         @inclusive = nil
 
@@ -146,7 +146,7 @@ class PathSpec
 
         regex.concat('$')
         super(regex)
-        
+
         # Copy original pattern
         @pattern = original_pattern.dup
       end

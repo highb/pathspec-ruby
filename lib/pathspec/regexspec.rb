@@ -15,7 +15,7 @@ class PathSpec
     end
 
     def match(path)
-      @regex.match(path) if @regex
+      @regex&.match(path)
     end
   end
 end
