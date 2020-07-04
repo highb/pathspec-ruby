@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.description = 'Use to match path patterns such as gitignore'
   s.authors = ['Brandon High']
   s.email = 'bh@brandon-high.com'
-  s.files = Dir.glob('{lib,spec}/**/*') + %w[LICENSE README.md CHANGELOG.md]
+  s.files = Dir.glob('{lib,spec,docs}/**/*') + %w[LICENSE README.md CHANGELOG.md]
   s.bindir = 'bin'
   s.executables << 'pathspec-rb'
   s.test_files = s.files.grep(%r{^spec/})
