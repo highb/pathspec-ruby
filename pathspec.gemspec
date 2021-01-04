@@ -16,6 +16,7 @@ Gem::Specification.new do |s|
   s.require_paths = ['lib']
   s.homepage = 'https://github.com/highb/pathspec-ruby'
   s.license = 'Apache-2.0'
+  s.required_ruby_version = '>= 2.6.0'
   s.add_development_dependency 'bundler', '~> 2.2'
   s.add_development_dependency 'fakefs', '~> 1.3'
   s.add_development_dependency 'rake', '~> 13.0'

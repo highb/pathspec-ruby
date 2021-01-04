@@ -42,14 +42,14 @@ class PathSpec
         if pattern.start_with?('!')
           @inclusive = false
           # Remove leading exclamation mark.
-          pattern = pattern[1..-1]
+          pattern = pattern[1..]
         else
           @inclusive = true
         end
 
         # Remove leading back-slash escape for escaped hash ('#') or
         # exclamation mark ('!').
-        pattern = pattern[1..-1] if pattern.start_with?('\\')
+        pattern = pattern[1..] if pattern.start_with?('\\')
 
         # Split pattern into segments. -1 to allow trailing slashes.
         pattern_segs = pattern.split('/', -1)
