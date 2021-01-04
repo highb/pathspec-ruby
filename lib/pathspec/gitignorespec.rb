@@ -5,7 +5,7 @@ class PathSpec
   class GitIgnoreSpec < RegexSpec
     attr_reader :regex, :pattern
 
-    def initialize(original_pattern)
+    def initialize(original_pattern) # rubocop:disable Metrics/CyclomaticComplexity
       pattern = original_pattern.strip unless original_pattern.nil?
 
       # A pattern starting with a hash ('#') serves as a comment
