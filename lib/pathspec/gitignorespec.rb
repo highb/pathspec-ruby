@@ -3,8 +3,7 @@ require 'pathspec/regexspec'
 class PathSpec
   # Class for parsing a .gitignore spec
   class GitIgnoreSpec < RegexSpec
-    attr_reader :regex
-    attr_reader :pattern
+    attr_reader :regex, :pattern
 
     def initialize(original_pattern)
       pattern = original_pattern.strip unless original_pattern.nil?
@@ -94,7 +93,8 @@ class PathSpec
         pattern_segs.each_index do |i|
           seg = pattern_segs[i]
 
-          if seg == '**'
+          case seg
+          when '**'
             # A pattern consisting solely of double-asterisks ('**')
             # will match every path.
             if i == 0 && i == regex_end
@@ -119,7 +119,7 @@ class PathSpec
             end
 
             # Match single path segment.
-          elsif seg == '*'
+          when '*'
             regex.concat(path_sep) if need_slash
 
             regex.concat("[^#{path_sep}]+")
@@ -150,10 +150,6 @@ class PathSpec
         # Copy original pattern
         @pattern = original_pattern.dup
       end
-    end
-
-    def match(path)
-      super(path)
     end
 
     def translate_segment_glob(pattern)
@@ -220,7 +216,8 @@ class PathSpec
             expr = '['
 
             # Braket expression needs to be negated.
-            if pattern[i].chr == '!'
+            case pattern[i].chr
+            when '!'
               expr += '^'
               i += 1
 
@@ -229,7 +226,7 @@ class PathSpec
               # `fnmatch.translate()` escapes the caret ('^') as a
               # literal. To maintain consistency with undefined behavior,
               # I am escaping the '^' as well.
-            elsif pattern[i].chr == '^'
+            when '^'
               expr += '\\^'
               i += 1
             end

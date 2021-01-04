@@ -1,8 +1,7 @@
 class PathSpec
   # Abstract spec
   class Spec
-    attr_reader :regex
-    attr_reader :pattern
+    attr_reader :regex, :pattern
 
     def initialize(*_); end
 

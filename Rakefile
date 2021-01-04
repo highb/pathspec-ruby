@@ -13,12 +13,10 @@ end
 
 task default: %i[rubocop spec man_pages]
 
-desc "Generate man page for executable script"
+desc 'Generate man page for executable script'
 task :man_pages do
-  rst2man = %x{which rst2man}.chomp
-  unless File.executable?(rst2man)
-    abort("rst2man could not be found and is needed to build man pages")
-  end
+  rst2man = `which rst2man`.chomp
+  abort('rst2man could not be found and is needed to build man pages') unless File.executable?(rst2man)
 
-  %x{rst2man docs/man/pathspec-rb.man.1.rst > docs/man/pathspec-rb.man.1}
+  `rst2man docs/man/pathspec-rb.man.1.rst > docs/man/pathspec-rb.man.1`
 end

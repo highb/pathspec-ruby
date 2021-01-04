@@ -63,7 +63,7 @@ class PathSpec
   end
 
   def drive_letter_to_path(path)
-    path.gsub(%r{^([a-zA-Z]):\/}, '/\1/')
+    path.gsub(%r{^([a-zA-Z]):/}, '/\1/')
   end
 
   # Generate specs from a filename, such as a .gitignore
@@ -101,9 +101,10 @@ class PathSpec
   end
 
   def spec_type(type)
-    if type == :git
+    case type
+    when :git
       GitIgnoreSpec
-    elsif type == :regex
+    when :regex
       RegexSpec
     else
       raise "Unknown spec type #{type}"
