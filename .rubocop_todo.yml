@@ -16,7 +16,7 @@ Layout/BlockEndNewline:
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.
 # SupportedStyles: auto_detection, squiggly, active_support, powerpack, unindent
-Layout/IndentHeredoc:
+Layout/HeredocIndentation:
   Exclude:
     - 'spec/unit/pathspec_spec.rb'
 
@@ -127,5 +127,5 @@ Style/SymbolProc:
 # Offense count: 7
 # Configuration parameters: AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.
 # URISchemes: http, https
-Metrics/LineLength:
+Layout/LineLength:
   Max: 108
