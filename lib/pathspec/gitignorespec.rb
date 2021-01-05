@@ -17,19 +17,19 @@ class PathSpec
 
         # A blank pattern is a null-operation (neither includes nor
         # excludes files).
-      elsif pattern.empty?
+      elsif pattern.empty? # rubocop:disable Lint/DuplicateBranch
         @regex = nil
         @inclusive = nil
 
         # Patterns containing three or more consecutive stars are invalid and
         # will be ignored.
-      elsif /\*\*\*+/.match?(pattern)
+      elsif /\*\*\*+/.match?(pattern) # rubocop:disable Lint/DuplicateBranch
         @regex = nil
         @inclusive = nil
 
         # EDGE CASE: According to git check-ignore (v2.4.1)), a single '/'
         # does not match any file
-      elsif pattern == '/'
+      elsif pattern == '/' # rubocop:disable Lint/DuplicateBranch
         @regex = nil
         @inclusive = nil
 
