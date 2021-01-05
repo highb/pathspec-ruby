@@ -59,7 +59,7 @@ when 'specs_match'
   end
 when 'tree'
   tree_matches = spec.match_tree(path)
-  if !tree_matches.empty?
+  if tree_matches.any?
     puts "Files in #{path} that match #{options[:spec_filename]}" if options[:verbose]
     puts tree_matches
   else
