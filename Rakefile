@@ -6,6 +6,7 @@ rescue LoadError
 end
 
 require 'rubocop/rake_task'
+require 'kramdown'
 
 RuboCop::RakeTask.new(:rubocop) do |t|
   t.options = ['--display-cop-names']
@@ -15,8 +16,12 @@ task default: %i[rubocop spec man_pages]
 
 desc 'Generate man page for executable script'
 task :man_pages do
-  rst2man = `which rst2man`.chomp
-  abort('rst2man could not be found and is needed to build man pages') unless File.executable?(rst2man)
+  kramdown = Kramdown::Document.new(File.read('docs/pathspec-rb.md'))
+  File.open('docs/man/pathspec-rb.man.1', 'w') do |f|
+    f.write(kramdown.to_man)
+  end
 
-  `rst2man docs/man/pathspec-rb.man.1.rst > docs/man/pathspec-rb.man.1`
+  File.open('docs/html/pathspec-rb.html', 'w') do |f|
+    f.write(kramdown.to_html)
+  end
 end
