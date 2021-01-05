@@ -15,7 +15,7 @@ end
 task default: %i[rubocop spec man_pages]
 
 desc 'Generate man page for executable script'
-task :man_pages do
+task :docs do
   kramdown = Kramdown::Document.new(File.read('docs/pathspec-rb.md'))
   File.open('docs/man/pathspec-rb.man.1', 'w') do |f|
     f.write(kramdown.to_man)
