@@ -12,7 +12,7 @@ RuboCop::RakeTask.new(:rubocop) do |t|
   t.options = ['--display-cop-names']
 end
 
-task default: %i[rubocop spec man_pages]
+task default: %i[rubocop spec docs]
 
 desc 'Generate man page for executable script'
 task :docs do
