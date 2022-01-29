@@ -49,7 +49,7 @@ require 'pathspec'
 # Create a .gitignore-style Pathspec by giving it newline separated gitignore
 # lines, an array of gitignore lines, or any other enumable object that will
 # give strings matching the .gitignore-style (File, etc.)
-gitignore = Pathspec.from_filename('spec/files/gitignore_readme')
+gitignore = PathSpec.from_filename('spec/files/gitignore_readme')
 
 # Our .gitignore in this example contains:
 # !**/important.txt
