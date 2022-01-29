@@ -1,11 +1,16 @@
 inherit_from: .rubocop_todo.yml
 
 AllCops:
-  TargetRubyVersion: 2.6
+  TargetRubyVersion: 2.7
   NewCops: enable
 
 Style/NumericPredicate:
   Enabled: false
 
 Layout/ClosingHeredocIndentation:
+  Enabled: false
+  
+# This rule is silly  
+# https://github.com/rubocop/rubocop/issues/10080
+Lint/AmbiguousOperatorPrecedence:
   Enabled: false
