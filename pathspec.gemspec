@@ -4,7 +4,6 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 Gem::Specification.new do |s|
   s.name = 'pathspec'
   s.version = '1.1.0'
-  s.date = '2018-01-11'
   s.summary = 'PathSpec: for matching path patterns'
   s.description = 'Use to match path patterns such as gitignore'
   s.authors = ['Brandon High']
@@ -14,6 +13,8 @@ Gem::Specification.new do |s|
   s.executables << 'pathspec-rb'
   s.test_files = s.files.grep(%r{^spec/})
   s.require_paths = ['lib']
+  s.metadata['allowed_push_host'] = 'https://rubygems.org'
+  s.metadata['rubygems_mfa_required'] = 'true'
   s.homepage = 'https://github.com/highb/pathspec-ruby'
   s.license = 'Apache-2.0'
   s.required_ruby_version = '>= 2.6.9'

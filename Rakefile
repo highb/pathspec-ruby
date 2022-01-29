@@ -20,12 +20,8 @@ task :docs do
   kramdown = Kramdown::Document.new(File.read('docs/pathspec-rb.md'))
 
   FileUtils.mkdir_p 'docs/man'
-  File.open('docs/man/pathspec-rb.man.1', 'w') do |f|
-    f.write(kramdown.to_man)
-  end
+  File.write('docs/man/pathspec-rb.man.1', kramdown.to_man)
 
   FileUtils.mkdir_p 'docs/html'
-  File.open('docs/html/pathspec-rb.html', 'w') do |f|
-    f.write(kramdown.to_html)
-  end
+  File.write('docs/html/pathspec-rb.html', kramdown.to_html)
 end

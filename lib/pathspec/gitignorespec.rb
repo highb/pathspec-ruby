@@ -153,15 +153,14 @@ class PathSpec
     end
 
     def translate_segment_glob(pattern)
-      ''"
-    Translates the glob pattern to a regular expression. This is used in
-    the constructor to translate a path segment glob pattern to its
-    corresponding regular expression.
-
-    *pattern* (``str``) is the glob pattern.
-
-    Returns the regular expression (``str``).
-      "''
+      # Translates the glob pattern to a regular expression. This is used in
+      # the constructor to translate a path segment glob pattern to its
+      # corresponding regular expression.
+      #
+      # *pattern* (``str``) is the glob pattern.
+      #
+      # Returns the regular expression (``str``).
+      #
       # NOTE: This is derived from `fnmatch.translate()` and is similar to
       # the POSIX function `fnmatch()` with the `FNM_PATHNAME` flag set.
 

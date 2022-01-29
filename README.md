@@ -4,9 +4,9 @@
 
 [Supported Rubies](https://www.ruby-lang.org/en/downloads/):
 
-- 2.4.6 (Maintenance)
-- 2.5.6 (Stable)
-- 2.6.4 (Stable)
+- 2.6 (Security Maintenance)
+- 2.7 (Stable, Tested)
+- 3.0 (Stable, Tested)
 
 Match Path Specifications, such as .gitignore, in Ruby!
 

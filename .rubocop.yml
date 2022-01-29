@@ -9,3 +9,8 @@ Style/NumericPredicate:
 
 Layout/ClosingHeredocIndentation:
   Enabled: false
+  
+# This rule is silly  
+# https://github.com/rubocop/rubocop/issues/10080
+Lint/AmbiguousOperatorPrecedence:
+  Enabled: false
