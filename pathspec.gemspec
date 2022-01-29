@@ -13,8 +13,8 @@ Gem::Specification.new do |s|
   s.executables << 'pathspec-rb'
   s.test_files = s.files.grep(%r{^spec/})
   s.require_paths = ['lib']
-  s.metadata["allowed_push_host"] = "https://rubygems.org"
-  s.metadata["rubygems_mfa_required"] = "true"
+  s.metadata['allowed_push_host'] = 'https://rubygems.org'
+  s.metadata['rubygems_mfa_required'] = 'true'
   s.homepage = 'https://github.com/highb/pathspec-ruby'
   s.license = 'Apache-2.0'
   s.required_ruby_version = '>= 2.6.9'
