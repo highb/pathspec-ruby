@@ -62,8 +62,8 @@ class PathSpec
         # to root.
         if pattern_segs[0].empty?
           pattern_segs.shift
-        elsif (pattern_segs.length == 1) ||
-              (pattern_segs.length == 2) && (pattern_segs[-1].empty?)
+        elsif pattern_segs.length == 1 ||
+              pattern_segs.length == 2 && pattern_segs[-1].empty?
           # A pattern without a beginning slash ('/') will match any
           # descendant path. This is equivilent to "**/{pattern}". So,
           # prepend with double-asterisks to make pattern relative to
