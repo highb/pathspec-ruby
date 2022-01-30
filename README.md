@@ -117,3 +117,11 @@ cd pathspec-ruby && bash ./build_from_source.sh
 ## Contributing
 
 Pull requests, bug reports, and feature requests welcome! :smile: I've tried to write exhaustive tests but who knows what cases I've missed.
+
+## Releasing
+
+This is mainly a reminder to myself but the release process is:
+1. Make sure CI is passing
+2. Update the CHANGELOG with relevant changes to Gem consumers
+3. Update version in gemspec with correct SemVer bump for scope of changes
+4. Tag/release using GitHub UI and the Build & Push workflow should do the rest.
