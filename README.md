@@ -77,6 +77,36 @@ gitignore.match_paths ['/abc/123', '/abc/important.txt', '/abc/']
 # There is no CLI equivalent to this.
 ```
 
+## Example Usage in Gemspec
+
+```
+lib = File.expand_path("lib", __dir__)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+require "gemspec_pathspec_test/version"
+require 'pathspec'
+
+Gem::Specification.new do |spec|
+  spec.name          = "gemspec_pathspec_test"
+  spec.version       = GemspecPathspecTest::VERSION
+  spec.authors       = ["Brandon High"]
+  spec.email         = ["highb@users.noreply.github.com"]
+
+  spec.summary = "whatever"
+
+  spec.metadata["allowed_push_host"] = "TODO: Set to 'http://mygemserver.com'"
+
+  ps = PathSpec.from_filename('.gitignore')
+  spec.files         = Dir['lib/*.rb'].reject { |f| ps.match(f) }
+  spec.bindir        = "exe"
+  spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
+  spec.require_paths = ["lib"]
+
+  spec.add_development_dependency "bundler", "~> 2.0"
+  spec.add_development_dependency "rake", "~> 10.0"
+  spec.add_development_dependency "rspec", "~> 3.0"
+end
+```
+
 ## Building/Installing from Source
 
 ```shell
