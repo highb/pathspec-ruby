@@ -19,9 +19,8 @@ desc 'Generate man page for executable script'
 task :docs do
   kramdown = Kramdown::Document.new(File.read('docs/pathspec-rb.md'))
 
+  File.write('docs/index.html', kramdown.to_html)
+
   FileUtils.mkdir_p 'docs/man'
   File.write('docs/man/pathspec-rb.man.1', kramdown.to_man)
-
-  FileUtils.mkdir_p 'docs/html'
-  File.write('docs/html/pathspec-rb.html', kramdown.to_html)
 end
