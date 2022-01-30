@@ -1,5 +1,12 @@
 # pathspec-ruby CHANGELOG
 
+## 1.1.0 (Minor Release)
+
+- (Maint) Updated Supported Ruby Versions
+- (Maint) Linting corrections
+
+## Undocumented Releases (Sorry!)
+
 ## 0.2.0 (Minor Release)
 - (Feature) A CLI tool, pathspec-rb, is now provided with the gem.
 - (API Change) New namespace for gem: `PathSpec`: Everything is now namespaced under `PathSpec`, to prevent naming collisions with other libraries. Thanks @tenderlove!
