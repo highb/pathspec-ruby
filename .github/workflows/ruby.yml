@@ -35,4 +35,4 @@ jobs:
     - name: Rake Tasks
       env:
         TASK: ${{matrix.raketasks}}
-      run: bundle exec $TASK
+      run: bundle exec rake $TASK
