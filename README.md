@@ -23,19 +23,19 @@ gem install pathspec
 ## CLI Usage
 
 ```bash
-➜  test-pathspec cat .gitignore
+➜ cat .gitignore
 *.swp
 /coverage/
-➜  test-pathspec be pathspec-rb specs_match "coverage/foo"
+➜ bundle exec pathspec-rb specs_match "coverage/foo"
 /coverage/
-➜  test-pathspec be pathspec-rb specs_match "file.swp"
+➜ bundle exec pathspec-rb specs_match "file.swp"
 *.swp
-➜ test-pathspec be pathspec-rb match "file.swp"
-➜ test-pathspec echo $?
+➜ bundle exec pathspec-rb match "file.swp"
+➜ echo $?
 0
-➜  test-pathspec ls
+➜ ls
 Gemfile      Gemfile.lock coverage     file.swp     source.rb
-➜  test-pathspec be pathspec-rb tree .
+➜ bundle exec pathspec-rb tree .
 ./coverage
 ./coverage/index.html
 ./file.swp
