@@ -2,6 +2,8 @@
 
 [![Gem Version](https://badge.fury.io/rb/pathspec.svg)](https://badge.fury.io/rb/pathspec) [![Build Status](https://travis-ci.org/highb/pathspec-ruby.svg?branch=master)](https://travis-ci.org/highb/pathspec-ruby) [![Maintainability](https://api.codeclimate.com/v1/badges/4f3b5917e01fb34f790d/maintainability)](https://codeclimate.com/github/highb/pathspec-ruby/maintainability)
 
+[man Page as HTML](http://highb.github.io/pathspec-ruby/)
+
 [Supported Rubies](https://www.ruby-lang.org/en/downloads/):
 
 - 2.6 (Security Maintenance)
