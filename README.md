@@ -1,6 +1,6 @@
 # pathspec-ruby
 
-[![Gem Version](https://badge.fury.io/rb/pathspec.svg)](https://badge.fury.io/rb/pathspec) [![Ruby](https://github.com/highb/pathspec-ruby/actions/workflows/ruby.yml/badge.svg)](https://github.com/highb/pathspec-ruby/actions/workflows/ruby.yml) [![Maintainability](https://api.codeclimate.com/v1/badges/4f3b5917e01fb34f790d/maintainability)](https://codeclimate.com/github/highb/pathspec-ruby/maintainability)
+[![Gem Version](https://badge.fury.io/rb/pathspec.svg)](https://badge.fury.io/rb/pathspec) [![Ruby](https://github.com/highb/pathspec-ruby/actions/workflows/ruby.yml/badge.svg)](https://github.com/highb/pathspec-ruby/actions/workflows/ruby.yml) [![Maintainability](https://api.codeclimate.com/v1/badges/4f3b5917e01fb34f790d/maintainability)](https://codeclimate.com/github/highb/pathspec-ruby/maintainability) [![Quality gate](https://sonarcloud.io/api/project_badges/quality_gate?project=highb_pathspec-ruby)](https://sonarcloud.io/summary/new_code?id=highb_pathspec-ruby)
 
 [man Page as HTML](http://highb.github.io/pathspec-ruby/)
 
