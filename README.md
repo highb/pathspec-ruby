@@ -1,14 +1,14 @@
 # pathspec-ruby
 
-[![Gem Version](https://badge.fury.io/rb/pathspec.svg)](https://badge.fury.io/rb/pathspec) [![Ruby](https://github.com/highb/pathspec-ruby/actions/workflows/ruby.yml/badge.svg)](https://github.com/highb/pathspec-ruby/actions/workflows/ruby.yml) [![Maintainability](https://api.codeclimate.com/v1/badges/4f3b5917e01fb34f790d/maintainability)](https://codeclimate.com/github/highb/pathspec-ruby/maintainability) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=highb_pathspec-ruby&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=highb_pathspec-ruby)
+[![Gem Version](https://badge.fury.io/rb/pathspec.svg)](https://badge.fury.io/rb/pathspec) [![Ruby](https://github.com/highb/pathspec-ruby/actions/workflows/ruby.yml/badge.svg)](https://github.com/highb/pathspec-ruby/actions/workflows/ruby.yml) [![Maintainability](https://api.codeclimate.com/v1/badges/4f3b5917e01fb34f790d/maintainability)](https://codeclimate.com/github/highb/pathspec-ruby/maintainability)
 
 [man Page as HTML](http://highb.github.io/pathspec-ruby/)
 
 [Supported Rubies](https://www.ruby-lang.org/en/downloads/):
 
-- 2.6 (Security Maintenance)
-- 2.7 (Stable, Tested)
-- 3.0 (Stable, Tested)
+- 3.1 (Stable, Tested)
+- 3.2 (Stable, Tested)
+- 3.3 (Stable, Tested)
 
 Match Path Specifications, such as .gitignore, in Ruby!
 

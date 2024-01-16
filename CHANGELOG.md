@@ -1,5 +1,9 @@
 # pathspec-ruby CHANGELOG
 
+## 2.0.0
+
+- (Maint) Remove deprecated/security release versions of Ruby. The Gem will now only support and be tested against >= 3.1.0 e.g. 3.1, 3.2, and 3.3.
+
 ## 1.1.0 (Minor Release)
 
 - (Maint) Updated Supported Ruby Versions

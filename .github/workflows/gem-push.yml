@@ -16,10 +16,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    - name: Set up Ruby 3.0
+    - name: Set up Ruby 3.1
       uses: ruby/setup-ruby@360dc864d5da99d54fcb8e9148c14a84b90d3e88
       with:
-        ruby-version: '3.0'
+        ruby-version: '3.1'
         bundler-cache: true # runs 'bundle install' and caches installed gems automatically
         
     - name: Generate man page
