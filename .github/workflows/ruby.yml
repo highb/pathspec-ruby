@@ -41,7 +41,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        ruby-version: ['2.7', '3.0']
+        ruby-version: ['3.0']
         # TODO: Fix rubocop issues
         # raketasks: ['rubocop', 'spec', 'docs']
         raketasks: ['spec', 'docs']
