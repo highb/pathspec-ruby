@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'pathspec/gitignorespec'
 require 'pathspec/regexspec'
 require 'find'
