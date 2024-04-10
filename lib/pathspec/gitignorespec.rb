@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'pathspec/regexspec'
 
 class PathSpec
@@ -87,7 +89,7 @@ class PathSpec
                    end
 
         # Build regular expression from pattern.
-        regex = '^'
+        regex = +'^'
         need_slash = false
         regex_end = pattern_segs.size - 1
         pattern_segs.each_index do |i|
@@ -165,7 +167,7 @@ class PathSpec
       # the POSIX function `fnmatch()` with the `FNM_PATHNAME` flag set.
 
       escape = false
-      regex = ''
+      regex = +''
       i = 0
 
       while i < pattern.size
