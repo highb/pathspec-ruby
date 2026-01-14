@@ -1,6 +1,6 @@
 [tools]
 ruby = "3.4.1"
-"gem:bundler" = "2.6.3"
+"gem:bundler" = "2.7.2"
 
 [tasks.install]
 run = "bundle install"
