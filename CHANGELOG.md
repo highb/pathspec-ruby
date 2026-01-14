@@ -7,13 +7,31 @@
 - (Maint) Remove Ruby 3.1 support (EOL March 2025). The Gem now requires >= 3.2.0
 - Updated minimum required Ruby version in gemspec from >= 3.1.0 to >= 3.2.0
 
+### Features
+
+- Added `match?` predicate method as alias for `match` to follow Ruby conventions
+- Added comprehensive CLI integration test suite (23 tests covering all commands, flags, and error handling)
+- Added mise (formerly rtx) tooling support for managing Ruby and bundler versions
+- Added `test_matrix` rake task to run tests across all Ruby versions (3.2, 3.3, 3.4, 4.0.1) using Docker
+- Separated unit tests (`rake spec`) and integration tests (`rake spec_integration`)
+- Added `spec_all` rake task to run complete test suite with unified coverage reporting
+
 ### Maintenance
 
 - Added Ruby 3.4 to testing matrix (Stable, Tested)
 - Added Ruby 4.0.1 to testing matrix (Preview, Tested)
 - Updated CI workflows to use Ruby 3.4 for gem publishing
+- Updated CI to run integration tests across all Ruby versions
+- Updated bundler requirement from `~> 2.2` to `>= 2.5` for Ruby 3.2-4.0 compatibility
+- Added `irb` as development dependency (required for Ruby 4.0+)
+- Updated RuboCop TargetRubyVersion to 3.2 to match gemspec requirement
+- Updated README with comprehensive development setup documentation
+  - mise installation and usage
+  - Development tasks and workflows
+  - Testing across Ruby version matrix
 - Updated README with comprehensive "Deprecated Rubies" section documenting historical deprecations
 - Updated "Supported Rubies" section in README to reflect current testing matrix (3.2, 3.3, 3.4, 4.0.1)
+- Improved test coverage from 99.48% to 99.65% (573/575 lines)
 
 ## 2.1.0
 

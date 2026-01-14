@@ -24,6 +24,7 @@ class PathSpec
     matches = specs_matching(path.to_s)
     !matches.empty? && matches.all? {|m| m.inclusive?}
   end
+  alias match? match
 
   def specs_matching(path)
     @specs.select do |spec|

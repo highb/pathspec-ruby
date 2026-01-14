@@ -160,9 +160,21 @@ mise run install
 ### Development Tasks
 
 ```shell
-# Run all tests (rubocop, rspec, docs)
+# Run all tests (rubocop, unit tests, integration tests, docs)
 mise run test
 # or: bundle exec rake
+
+# Run only unit tests
+mise run test:unit
+# or: bundle exec rake spec
+
+# Run only integration tests
+mise run test:integration
+# or: bundle exec rake spec_integration
+
+# Run all specs (unit + integration)
+mise run test:all
+# or: bundle exec rake spec_all
 
 # Run tests across all Ruby versions (3.2, 3.3, 3.4, 4.0.1) using Docker
 mise run test:matrix
@@ -173,7 +185,7 @@ mise run build
 # or: gem build pathspec.gemspec
 ```
 
-The `test:matrix` task runs the full test suite across all supported Ruby versions in Docker containers, matching the CI environment.
+The `test:matrix` task runs the full test suite across all supported Ruby versions in Docker containers, matching the CI environment. Integration tests cover the CLI executable (`bin/pathspec-rb`).
 
 ## Contributing
 

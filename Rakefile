@@ -2,7 +2,18 @@
 
 begin
   require 'rspec/core/rake_task'
-  RSpec::Core::RakeTask.new(:spec)
+
+  RSpec::Core::RakeTask.new(:spec) do |t|
+    t.pattern = 'spec/unit/**/*_spec.rb'
+  end
+
+  RSpec::Core::RakeTask.new(:spec_integration) do |t|
+    t.pattern = 'spec/integration/**/*_spec.rb'
+  end
+
+  RSpec::Core::RakeTask.new(:spec_all) do |t|
+    t.pattern = 'spec/**/*_spec.rb'
+  end
 rescue LoadError
   puts 'rspec rake task failed to load'
 end
@@ -15,7 +26,7 @@ RuboCop::RakeTask.new(:rubocop) do |t|
   t.options = ['--display-cop-names']
 end
 
-task default: %i[rubocop spec docs]
+task default: %i[rubocop spec spec_integration docs]
 
 desc 'Generate man page for executable script'
 task :docs do
@@ -43,7 +54,7 @@ task :test_matrix do
       '-w', '/app',
       "ruby:#{version}",
       'bash', '-c',
-      'bundle install && bundle exec rake rubocop spec docs'
+      'bundle install && bundle exec rake rubocop spec spec_integration docs'
     ].shelljoin
 
     success = system(cmd)

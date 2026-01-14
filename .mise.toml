@@ -1,5 +1,6 @@
 [tools]
 ruby = "3.4.1"
+"gem:bundler" = "2.6.3"
 
 [tasks.install]
 run = "bundle install"
@@ -7,7 +8,19 @@ description = "Install gem dependencies"
 
 [tasks.test]
 run = "bundle exec rake"
-description = "Run rubocop, specs, and docs"
+description = "Run rubocop, unit tests, integration tests, and docs"
+
+[tasks."test:unit"]
+run = "bundle exec rake spec"
+description = "Run unit tests only"
+
+[tasks."test:integration"]
+run = "bundle exec rake spec_integration"
+description = "Run integration tests only"
+
+[tasks."test:all"]
+run = "bundle exec rake spec_all"
+description = "Run all tests (unit + integration)"
 
 [tasks."test:matrix"]
 run = "bundle exec rake test_matrix"
