@@ -125,6 +125,56 @@ git clone git@github.com:highb/pathspec-ruby.git
 cd pathspec-ruby && bash ./build_from_source.sh
 ```
 
+## Development Setup
+
+This project uses [mise](https://mise.jdx.dev/) for managing Ruby and bundler versions.
+
+### Install mise
+
+```shell
+# macOS
+brew install mise
+
+# Other platforms: https://mise.jdx.dev/getting-started.html
+```
+
+### Activate mise
+
+Add to your shell profile (`~/.zshrc`, `~/.bashrc`, etc.):
+
+```shell
+eval "$(mise activate zsh)"  # or bash, fish, etc.
+```
+
+### Install Dependencies
+
+```shell
+# Install Ruby and bundler versions defined in .tool-versions
+mise install
+
+# Install gem dependencies
+mise run install
+# or: bundle install
+```
+
+### Development Tasks
+
+```shell
+# Run all tests (rubocop, rspec, docs)
+mise run test
+# or: bundle exec rake
+
+# Run tests across all Ruby versions (3.2, 3.3, 3.4, 4.0.1) using Docker
+mise run test:matrix
+# or: bundle exec rake test_matrix
+
+# Build the gem
+mise run build
+# or: gem build pathspec.gemspec
+```
+
+The `test:matrix` task runs the full test suite across all supported Ruby versions in Docker containers, matching the CI environment.
+
 ## Contributing
 
 Pull requests, bug reports, and feature requests welcome! :smile: I've tried to write exhaustive tests but who knows what cases I've missed.

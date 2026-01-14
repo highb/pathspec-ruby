@@ -1,0 +1,23 @@
+[tools]
+ruby = "3.4.1"
+bundler = "2.6.3"
+
+[tasks.install]
+run = "bundle install"
+description = "Install gem dependencies"
+
+[tasks.test]
+run = "bundle exec rake"
+description = "Run rubocop, specs, and docs"
+
+[tasks."test:matrix"]
+run = "bundle exec rake test_matrix"
+description = "Run tests across all Ruby versions in Docker"
+
+[tasks.build]
+run = "gem build pathspec.gemspec"
+description = "Build the gem"
+
+[env]
+# Ensure bundler uses the project's vendor/bundle directory
+_.file = ".env"
