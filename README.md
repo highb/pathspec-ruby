@@ -6,9 +6,20 @@
 
 [Supported Rubies](https://www.ruby-lang.org/en/downloads/):
 
-- 3.1 (Stable, Tested)
 - 3.2 (Stable, Tested)
 - 3.3 (Stable, Tested)
+- 3.4 (Stable, Tested)
+- 4.0.1 (Preview, Tested)
+
+## Deprecated Rubies
+
+The following Ruby versions are no longer supported. If you need to use an older Ruby version, please use an earlier version of this gem:
+
+- Ruby 3.1: Deprecated in version 3.0.0 (current project, not yet released)
+- Ruby 3.0: Deprecated in version 2.0.0 (January 2024)
+- Ruby 2.x (2.6-2.7): Deprecated in version 2.0.0 (January 2024)
+- Ruby 2.5 and earlier: Deprecated in version 1.0.0 (January 2021)
+- Ruby 1.8 and 1.9: Deprecated in version 0.2.0 (circa 2017)
 
 Match Path Specifications, such as .gitignore, in Ruby!
 

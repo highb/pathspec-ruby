@@ -1,5 +1,20 @@
 # pathspec-ruby CHANGELOG
 
+## 3.0.0 (Major Release)
+
+### Breaking Changes
+
+- (Maint) Remove Ruby 3.1 support (EOL March 2025). The Gem now requires >= 3.2.0
+- Updated minimum required Ruby version in gemspec from >= 3.1.0 to >= 3.2.0
+
+### Maintenance
+
+- Added Ruby 3.4 to testing matrix (Stable, Tested)
+- Added Ruby 4.0.1 to testing matrix (Preview, Tested)
+- Updated CI workflows to use Ruby 3.4 for gem publishing
+- Updated README with comprehensive "Deprecated Rubies" section documenting historical deprecations
+- Updated "Supported Rubies" section in README to reflect current testing matrix (3.2, 3.3, 3.4, 4.0.1)
+
 ## 2.1.0
 
 ## refactor/perf
