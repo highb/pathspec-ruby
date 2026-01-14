@@ -1,5 +1,13 @@
 # pathspec-ruby CHANGELOG
 
+## 3.0.1 (Patch Release)
+
+### Note
+
+This is a version bump only release to correct an oversight in the 3.0.0 release where the gemspec version was not updated before publishing. The gem published as 3.0.0 on RubyGems had version 2.1.0 in the gemspec.
+
+For the actual feature changes and improvements, see the [3.0.0 release](https://github.com/highb/pathspec-ruby/releases/tag/3.0.0).
+
 ## 3.0.0 (Major Release)
 
 ### Breaking Changes
