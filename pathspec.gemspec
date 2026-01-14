@@ -21,6 +21,7 @@ Gem::Specification.new do |s|
   s.required_ruby_version = '>= 3.2.0'
   s.add_development_dependency 'bundler', '>= 2.4.19'
   s.add_development_dependency 'fakefs', '~> 2.5'
+  s.add_development_dependency 'irb', '~> 1.14'
   s.add_development_dependency 'kramdown', '~> 2.3'
   s.add_development_dependency 'rake', '~> 13.0'
   s.add_development_dependency 'rspec', '~> 3.10'
