@@ -50,13 +50,12 @@ task :test_matrix do
     failed_versions << version unless success
   end
 
+  puts "\n#{'=' * 80}"
   if failed_versions.any?
-    puts "\n#{'=' * 80}"
     puts "FAILED on Ruby versions: #{failed_versions.join(', ')}"
     puts '=' * 80
     exit 1
   else
-    puts "\n#{'=' * 80}"
     puts 'All Ruby versions passed!'
     puts '=' * 80
   end
