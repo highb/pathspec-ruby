@@ -30,6 +30,10 @@ description = "Run tests across all Ruby versions in Docker"
 run = "gem build pathspec.gemspec"
 description = "Build the gem"
 
+[tasks.benchmark]
+run = "bundle exec rake benchmark"
+description = "Run performance benchmarks (not included in CI)"
+
 [env]
 # Ensure bundler uses the project's vendor/bundle directory
 _.file = ".env"

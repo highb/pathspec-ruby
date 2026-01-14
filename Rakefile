@@ -71,3 +71,29 @@ task :test_matrix do
     puts '=' * 80
   end
 end
+
+desc 'Run performance benchmarks (requires benchmark-ips gem)'
+task :benchmark do
+  puts 'Running performance benchmarks...'
+  puts 'This may take several minutes to complete.'
+  puts
+
+  benchmark_script = File.join(__dir__, 'benchmarks', 'pattern_scaling.rb')
+
+  unless File.exist?(benchmark_script)
+    puts 'Error: Benchmark script not found at benchmarks/pattern_scaling.rb'
+    exit 1
+  end
+
+  # Check if benchmark-ips is available
+  begin
+    require 'benchmark/ips'
+  rescue LoadError
+    puts 'Error: benchmark-ips gem is not installed'
+    puts 'Please run: bundle install'
+    exit 1
+  end
+
+  # Run the benchmark script
+  system('ruby', benchmark_script) || exit(1)
+end
