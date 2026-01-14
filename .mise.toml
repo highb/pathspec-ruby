@@ -1,6 +1,5 @@
 [tools]
 ruby = "3.4.1"
-bundler = "2.6.3"
 
 [tasks.install]
 run = "bundle install"
