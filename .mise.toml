@@ -1,5 +1,5 @@
 [tools]
-ruby = "3.4.1"
+ruby = "4.0.1"
 "gem:bundler" = "4.0.4"
 
 [tasks.install]
