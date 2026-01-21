@@ -16,7 +16,7 @@ def generate_test_paths(count = 1000)
 
   # Mix of different path types
   extensions = %w[.rb .txt .log .tmp .swp .md .yml .json .xml .css .js .html]
-  directories = ['src', 'lib', 'test', 'spec', 'config', 'docs', 'bin', 'tmp', 'coverage', 'vendor']
+  directories = %w[src lib test spec config docs bin tmp coverage vendor]
 
   count.times do |i|
     depth = rand(1..4)
@@ -30,7 +30,24 @@ end
 
 # Generate gitignore patterns of varying complexity
 def generate_patterns(count)
-  base_patterns = [
+  base_patterns = base_gitignore_patterns
+
+  # Return the first 'count' patterns, cycling if needed
+  if count <= base_patterns.length
+    base_patterns.take(count)
+  else
+    patterns = base_patterns.dup
+    remaining = count - base_patterns.length
+    remaining.times do |i|
+      patterns << "generated_pattern_#{i}/**/*"
+    end
+    patterns
+  end
+end
+
+# rubocop:disable Metrics/MethodLength
+def base_gitignore_patterns
+  [
     '*.log',
     '*.tmp',
     '*.swp',
@@ -165,31 +182,20 @@ def generate_patterns(count)
     '.yarn/install-state.gz',
     '.pnp.*'
   ]
-
-  # Return the first 'count' patterns, cycling if needed
-  if count <= base_patterns.length
-    base_patterns.take(count)
-  else
-    patterns = base_patterns.dup
-    remaining = count - base_patterns.length
-    remaining.times do |i|
-      patterns << "generated_pattern_#{i}/**/*"
-    end
-    patterns
-  end
 end
+# rubocop:enable Metrics/MethodLength
 
-puts "PathSpec Performance Benchmark"
-puts "=" * 80
-puts "Testing pattern matching performance with varying pattern counts"
-puts "Hardware: Apple M4 Pro (12 cores: 8 performance + 4 efficiency), 24 GB RAM"
+puts 'PathSpec Performance Benchmark'
+puts '=' * 80
+puts 'Testing pattern matching performance with varying pattern counts'
+puts 'Hardware: Apple M4 Pro (12 cores: 8 performance + 4 efficiency), 24 GB RAM'
 puts "Ruby Version: #{RUBY_VERSION}"
-puts "Test Configuration:"
+puts 'Test Configuration:'
 puts "  - Pattern counts: #{PATTERN_COUNTS.join(', ')}"
-puts "  - Test paths: 1000 representative file paths"
+puts '  - Test paths: 1000 representative file paths'
 puts "  - Warmup time: #{WARMUP_TIME}s"
 puts "  - Benchmark time: #{BENCHMARK_TIME}s per test"
-puts "=" * 80
+puts '=' * 80
 puts
 
 # Pre-generate test data
@@ -203,7 +209,7 @@ PATTERN_COUNTS.each do |pattern_count|
   pathspec = PathSpec.new(patterns, :git)
 
   puts "Benchmarking with #{pattern_count} patterns..."
-  puts "-" * 80
+  puts '-' * 80
 
   results[pattern_count] = {}
 
@@ -211,7 +217,7 @@ PATTERN_COUNTS.each do |pattern_count|
   Benchmark.ips do |x|
     x.config(time: BENCHMARK_TIME, warmup: WARMUP_TIME)
 
-    x.report("match (single path)") do
+    x.report('match (single path)') do
       test_paths.first(10).each do |path|
         pathspec.match(path)
       end
@@ -226,7 +232,7 @@ PATTERN_COUNTS.each do |pattern_count|
   Benchmark.ips do |x|
     x.config(time: BENCHMARK_TIME, warmup: WARMUP_TIME)
 
-    x.report("match_paths (100 paths)") do
+    x.report('match_paths (100 paths)') do
       pathspec.match_paths(test_paths.first(100), '')
     end
   end
@@ -237,7 +243,7 @@ PATTERN_COUNTS.each do |pattern_count|
   Benchmark.ips do |x|
     x.config(time: BENCHMARK_TIME, warmup: WARMUP_TIME)
 
-    x.report("initialization") do
+    x.report('initialization') do
       PathSpec.new(patterns, :git)
     end
   end
@@ -245,11 +251,11 @@ PATTERN_COUNTS.each do |pattern_count|
   puts "\n"
 end
 
-puts "=" * 80
-puts "Benchmark complete!"
-puts "=" * 80
+puts '=' * 80
+puts 'Benchmark complete!'
+puts '=' * 80
 puts "\nTo analyze results:"
-puts "1. Review the iterations/second (i/s) for each pattern count"
-puts "2. Compare how performance scales as pattern count increases"
-puts "3. Identify which operations are most affected by pattern count"
+puts '1. Review the iterations/second (i/s) for each pattern count'
+puts '2. Compare how performance scales as pattern count increases'
+puts '3. Identify which operations are most affected by pattern count'
 puts "\nNote: Higher i/s (iterations per second) indicates better performance"
