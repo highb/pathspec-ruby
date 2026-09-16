@@ -20,7 +20,7 @@ jobs:
       matrix:
         ruby-version: ['3.2', '3.3', '3.4', '4.0.1']
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
       with:
@@ -38,7 +38,7 @@ jobs:
         ruby-version: ['3.2', '3.3', '3.4', '4.0.1']
         raketasks: ['rubocop', 'spec', 'spec_integration', 'docs']
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
       with:
