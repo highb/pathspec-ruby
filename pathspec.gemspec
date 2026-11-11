@@ -26,6 +26,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'kramdown', '~> 2.3'
   s.add_development_dependency 'rake', '~> 13.0'
   s.add_development_dependency 'rspec', '~> 3.10'
-  s.add_development_dependency 'rubocop', '~> 1.63.0'
+  s.add_development_dependency 'rubocop', '~> 1.92.0'
   s.add_development_dependency 'simplecov', '~> 0.21'
 end
